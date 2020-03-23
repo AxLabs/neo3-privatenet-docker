@@ -1,0 +1,28 @@
+﻿{
+  "ApplicationConfiguration": {
+    "Storage": {
+      "Engine": "MemoryStore"
+    },
+    "Paths": {
+      "Chain": "Client_Chain_{0}",
+    },
+    "P2P": {
+      "Port": 50333,
+      "WsPort": 50334
+    },
+    "RPC": {
+      "BindAddress": "127.0.0.1",
+      "Port": 50332,
+      "SslCert": "",
+      "SslCertPassword": "",
+      "MaxGasInvoke": 10
+    },
+    "UnlockWallet": {
+      "Path": "wallet.json",
+      "Password": "one",
+      "StartConsensus": false,
+      "IsActive": false
+      },
+    "PluginURL": "https://github.com/neo-project/neo-plugins/releases/download/v{1}/{0}.zip"
+  }
+}

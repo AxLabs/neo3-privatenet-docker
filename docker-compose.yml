@@ -1,0 +1,40 @@
+version: '3.6'
+
+services:  
+
+  build-neo-cli:
+    build: ./neo-node
+    image: neo-project/neo-node/neo-cli:latest
+
+  neo-consensus:
+    build:
+      context: ./neo-modules
+      dockerfile: ../docker/Dockerfile
+      target: NeoCliFinal
+    image: docker.pkg.github.com/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:latest
+    hostname: neo-consensus
+    depends_on:
+      - build-neo-cli
+    volumes:
+      - ./config/config.privatenet3-consensus.json:/neo-cli/config.json:ro
+      - ./config/protocol.privatenet3-consensus.json:/neo-cli/protocol.json:ro
+      - ./config/wallet.privatenet3.json:/neo-cli/wallet.json:ro
+    ports:
+      - "40332:40332"
+
+  neo-client:
+    build:
+      context: ./neo-modules
+      dockerfile: ../docker/Dockerfile
+      target: NeoCliFinal
+    image: docker.pkg.github.com/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:latest
+    hostname: neo-client
+    depends_on:
+      - build-neo-cli
+      - neo-consensus
+    volumes:
+      - ./config/config.privatenet3-client.json:/neo-cli/config.json:ro
+      - ./config/protocol.privatenet3-client.json:/neo-cli/protocol.json:ro
+      - ./config/wallet.privatenet3.json:/neo-cli/wallet.json:ro
+    ports:
+      - "50332:50332"
