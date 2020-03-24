@@ -1,25 +1,25 @@
 # neo3-privatenet-docker
 
 :fire::fire::fire:
-:fire:**Run Neo3 nodes for development in record time!**
+**Run Neo3 nodes for development in record time!**
 :fire::fire::fire:
 
 This is the **ultimate** GitHub repository to run your Neo3 blockchain node and start developing.
 
-* green_heart: This repository relies on [git sub-modules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) pointing to the official [neo-node](https://github.com/neo-project/neo-modules/) and [neo-modules](https://github.com/neo-project/neo-node/). Then, you can adjust the reference if you want to rely on the latest or an specific commit! :wink:
+* :green_heart: This repository relies on [git sub-modules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) pointing to the official [neo-node](https://github.com/neo-project/neo-modules/) and [neo-modules](https://github.com/neo-project/neo-node/). Then, you can adjust the reference if you want to rely on the latest or an specific commit! :wink:
 * :rocket: The neo-cli image is built from the official `Dockerfile` from [neo-node](https://github.com/neo-project/neo-node/).
 * :star: Includes **all** available plugins from [neo-modules](https://github.com/neo-project/neo-modules/)
 * :boom: *It just fucking works.*
 
-:rotating_light::rotating_light::rotating_light: **Dependencies**:
+## :rotating_light: Dependencies
  - [docker](https://docs.docker.com/install/): [MacOS](https://docs.docker.com/docker-for-mac/install/) or [Windows](https://docs.docker.com/docker-for-windows/install/)
  - [docker-compose](https://docs.docker.com/compose/install/)
 
-## :running:How to run
+## :running: How to Run
 
 TBD.
 
-## :bulb:Info
+## :bulb: Info
 
 * 3 nodes
   * **Consensus**
@@ -41,6 +41,6 @@ TBD.
 
 * Wallet passphrase: `one`
 
-## :pray:Thanks
+## :pray: Thanks
 
 We have to thank [hal0x2328](https://github.com/hal0x2328) for publishing [hal0x2328/neo3-privatenet-tutorial](https://github.com/hal0x2328/neo3-privatenet-tutorial) and inspire us to make things even simpler. :smiley: :wink:
