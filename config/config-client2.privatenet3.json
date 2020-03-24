@@ -7,12 +7,12 @@
       "Chain": "Client_Chain_{0}",
     },
     "P2P": {
-      "Port": 50333,
-      "WsPort": 50334
+      "Port": 20333,
+      "WsPort": 20334
     },
     "RPC": {
       "BindAddress": "127.0.0.1",
-      "Port": 50332,
+      "Port": 20332,
       "SslCert": "",
       "SslCertPassword": "",
       "MaxGasInvoke": 10
