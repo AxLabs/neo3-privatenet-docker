@@ -28,8 +28,8 @@
 ## :running: How to Run
 
 ```
-git clone https://github.com/AxLabs/neo3-privatenet-docker.git
-cd neo3-privatenet-docker && git submodule update
+git clone --recurse-submodules https://github.com/AxLabs/neo3-privatenet-docker.git
+cd neo3-privatenet-docker
 docker-compose up
 ```
 
