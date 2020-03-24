@@ -16,25 +16,42 @@ services:
     depends_on:
       - build-neo-cli
     volumes:
-      - ./config/config.privatenet3-consensus.json:/neo-cli/config.json:ro
-      - ./config/protocol.privatenet3-consensus.json:/neo-cli/protocol.json:ro
-      - ./config/wallet.privatenet3.json:/neo-cli/wallet.json:ro
+      - ./config/config-consensus.privatenet3.json:/neo-cli/config.json:ro
+      - ./config/protocol-consensus.privatenet3.json:/neo-cli/protocol.json:ro
+      - ./config/wallet-consensus.privatenet3.json:/neo-cli/wallet.json:rw
     ports:
       - "40332:40332"
 
-  neo-client:
+  neo-client1:
     build:
       context: ./neo-modules
       dockerfile: ../docker/Dockerfile
       target: NeoCliFinal
     image: docker.pkg.github.com/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:latest
-    hostname: neo-client
+    hostname: neo-client1
     depends_on:
       - build-neo-cli
       - neo-consensus
     volumes:
-      - ./config/config.privatenet3-client.json:/neo-cli/config.json:ro
-      - ./config/protocol.privatenet3-client.json:/neo-cli/protocol.json:ro
-      - ./config/wallet.privatenet3.json:/neo-cli/wallet.json:ro
+      - ./config/config-client1.privatenet3.json:/neo-cli/config.json:ro
+      - ./config/protocol-client1.privatenet3.json:/neo-cli/protocol.json:ro
+      - ./config/wallet-client1.privatenet3.json:/neo-cli/wallet.json:rw
     ports:
-      - "50332:50332"
+      - "10332:10332"
+
+  neo-client2:
+    build:
+      context: ./neo-modules
+      dockerfile: ../docker/Dockerfile
+      target: NeoCliFinal
+    image: docker.pkg.github.com/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:latest
+    hostname: neo-client2
+    depends_on:
+      - build-neo-cli
+      - neo-consensus
+    volumes:
+      - ./config/config-client2.privatenet3.json:/neo-cli/config.json:ro
+      - ./config/protocol-client2.privatenet3.json:/neo-cli/protocol.json:ro
+      - ./config/wallet-client2.privatenet3.json:/neo-cli/wallet.json:rw
+    ports:
+      - "20332:20332"
