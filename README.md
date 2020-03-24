@@ -1,15 +1,15 @@
 [![License](https://img.shields.io/github/license/AxLabs/neo3-privatenet-docker)](https://github.com/AxLabs/neo3-privatenet-docker/blob/master/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/AxLabs/neo3-privatenet-docker?style=social)](https://github.com/AxLabs/neo3-privatenet-docker/stargazers)
 
-<div align="center">  
+<div align="center" style="margin-top: 50pt; margin-bottom: 50px;">  
 <h1>neo3-privatenet-docker</h1>
-<p align="center">
+<p align="center" style="margin-top: 30pt;">
   :fire::zap::fire::zap::fire:
   <b>Run Neo3 blockchain nodes for development in record time!</b>
   :fire::zap::fire::zap::fire:
 </p>
 
-<p>You're <b>3 commands away<b> to set up a Neo3 blockchain private network.</p>
+<p>You're <b>3 commands away</b> to set up a Neo3 blockchain private network.</p>
 </div>
 
 ## :tada: Highlights
