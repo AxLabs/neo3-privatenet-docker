@@ -3,11 +3,15 @@
 ![License](https://img.shields.io/github/license/AxLabs/neo3-privatenet-docker)
 ![GitHub stars](https://img.shields.io/github/stars/AxLabs/neo3-privatenet-docker?style=social)
 
+<p></p>
+
 <p align="center">
   :fire::zap::fire::zap::fire:
-  **Run Neo3 nodes for development in record time!**
+  <b>Run Neo3 nodes for development in record time!</b>
   :fire::zap::fire::zap::fire:
 </p>
+
+<p></p>
 
 This is the **ultimate** GitHub repository to run your**Neo3 blockchain** nodes and start developing.
 
@@ -37,39 +41,45 @@ Then, check the running privatenet:
 docker ps
 ```
 
-## :zap: Test a bit with JSON-RPC
+If you want to stop everything and start from **scratch**:
 
-Get the latest block index of `neo-client1`:
+```
+docker-compose down -v
+```
+
+## :zap: Test a bit through JSON-RPC
+
+* Get the latest block index of `neo-client1`:
 
 ```
 curl http://127.0.0.1:10332 -d '{"jsonrpc":"2.0","method":"getblockcount","params":[],"id":1}'
 ```
 
-Open the wallet of the `neo-consesus` through JSON-RPC (**only for test purposes!**):
+* Open the wallet of the `neo-consesus` through JSON-RPC (**only for test purposes!**):
 
 ```
 curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"openwallet","params":["wallet.json","one"],"id":1}'
 ```
 
-List the addresses in `neo-consensus` wallet:
+* List the addresses in `neo-consensus` wallet:
 
 ```
 curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"listaddress","params":[],"id":1}'
 ```
 
-Get the NEO balance of all addresses in `neo-consensus` wallet:
+* Get the NEO balance of all addresses in `neo-consensus` wallet:
 
 ```
 curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"getbalance","params":["0x9bde8f209c88dd0e7ca3bf0af0f476cdd8207789"],"id":1}'
 ```
 
-Get all NEP-5 balance of `neo-consensus`' address `AHE5cLhX5NjGB5R2PcdUvGudUoGUBDeHX4`, specifically:
+* Get all NEP-5 balance of `neo-consensus`' address `AHE5cLhX5NjGB5R2PcdUvGudUoGUBDeHX4`, specifically:
 
 ```
 curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"getnep5balances","params":["AHE5cLhX5NjGB5R2PcdUvGudUoGUBDeHX4"],"id":1}'
 ```
 
-Send 100 NEO from `neo-consensus`' address `AHE5cLhX5NjGB5R2PcdUvGudUoGUBDeHX4` to `neo-client1`'s address `AcozGpiGDpp9Vt9RMyokWNyu7hh341T2bb`:
+* Send 100 NEO from `neo-consensus`' address `AHE5cLhX5NjGB5R2PcdUvGudUoGUBDeHX4` to `neo-client1`'s address `AcozGpiGDpp9Vt9RMyokWNyu7hh341T2bb`:
 
 ```
 curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"sendfrom","params":["0x9bde8f209c88dd0e7ca3bf0af0f476cdd8207789","AHE5cLhX5NjGB5R2PcdUvGudUoGUBDeHX4","AcozGpiGDpp9Vt9RMyokWNyu7hh341T2bb",100],"id":1}'
