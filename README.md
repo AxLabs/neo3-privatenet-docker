@@ -1,8 +1,13 @@
 # neo3-privatenet-docker
 
-:fire::zap::fire::zap::fire:
-**Run Neo3 nodes for development in record time!**
-:fire::zap::fire::zap::fire:
+![License](https://img.shields.io/github/license/AxLabs/neo3-privatenet-docker)
+![GitHub stars](https://img.shields.io/github/stars/AxLabs/neo3-privatenet-docker?style=social)
+
+<p align="center">
+  :fire::zap::fire::zap::fire:
+  **Run Neo3 nodes for development in record time!**
+  :fire::zap::fire::zap::fire:
+</p>
 
 This is the **ultimate** GitHub repository to run your**Neo3 blockchain** nodes and start developing.
 
