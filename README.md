@@ -1,26 +1,25 @@
-# neo3-privatenet-docker
+[![License](https://img.shields.io/github/license/AxLabs/neo3-privatenet-docker)](https://github.com/AxLabs/neo3-privatenet-docker/blob/master/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/AxLabs/neo3-privatenet-docker?style=social)](https://github.com/AxLabs/neo3-privatenet-docker/stargazers)
 
-![License](https://img.shields.io/github/license/AxLabs/neo3-privatenet-docker)
-![GitHub stars](https://img.shields.io/github/stars/AxLabs/neo3-privatenet-docker?style=social)
-
-<p></p>
-
+<div align="center">  
+<h1>neo3-privatenet-docker</h1>
 <p align="center">
   :fire::zap::fire::zap::fire:
-  <b>Run Neo3 nodes for development in record time!</b>
+  <b>Run Neo3 blockchain nodes for development in record time!</b>
   :fire::zap::fire::zap::fire:
 </p>
 
-<p></p>
+<p>You're <b>3 commands away<b> to set up a Neo3 blockchain private network.</p>
+</div>
 
-This is the **ultimate** GitHub repository to run your**Neo3 blockchain** nodes and start developing.
+## :tada: Highlights
 
-* :green_heart: This repository relies on [git sub-modules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) pointing to the official [neo-node](https://github.com/neo-project/neo-modules/) and [neo-modules](https://github.com/neo-project/neo-node/). Then, you can adjust the reference if you want to rely on the latest or an specific commit! :wink:
+* :green_heart: This repository relies on [git sub-modules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) pointing to the official [neo-node](https://github.com/neo-project/neo-modules/) and [neo-modules](https://github.com/neo-project/neo-node/). Then, you can adjust the reference if you want to rely on the latest or an specific commit!
 * :rocket: The neo-cli image is built from the official `Dockerfile` from [neo-node](https://github.com/neo-project/neo-node/).
-* :star: Includes **all** available plugins from [neo-modules](https://github.com/neo-project/neo-modules/)
+* :100: Includes **all** available plugins from [neo-modules](https://github.com/neo-project/neo-modules/)
 * :boom: *It just fucking works.*
 
-Ah, we love GitHub stars to keep our motivation up to the roof! :star: :wink:
+ :star: Ah, we love GitHub stars to keep our motivation up to the roof! :wink:
 
 ## :rotating_light: Dependencies
  - [docker](https://docs.docker.com/install/): [MacOS](https://docs.docker.com/docker-for-mac/install/) or [Windows](https://docs.docker.com/docker-for-windows/install/)
@@ -30,8 +29,7 @@ Ah, we love GitHub stars to keep our motivation up to the roof! :star: :wink:
 
 ```
 git clone https://github.com/AxLabs/neo3-privatenet-docker.git
-cd neo3-privatenet-docker
-git submodule update
+cd neo3-privatenet-docker && git submodule update
 docker-compose up
 ```
 
