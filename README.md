@@ -30,9 +30,7 @@ Then, check the running privatenet:
 docker ps
 ```
 
-:zap:
-
-## Test a bit with JSON-RPC
+## :zap: Test a bit with JSON-RPC
 
 Get the latest block index of `neo-client1`:
 
