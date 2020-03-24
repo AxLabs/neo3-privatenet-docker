@@ -11,7 +11,7 @@
       "WsPort": 40334
     },
     "RPC": {
-      "BindAddress": "127.0.0.1",
+      "BindAddress": "0.0.0.0",
       "Port": 40332,
       "SslCert": "",
       "SslCertPassword": "",
