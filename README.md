@@ -1,8 +1,8 @@
 # neo3-privatenet-docker
 
-:fire::fire::fire:
+:fire::zap::fire::zap::fire:
 **Run Neo3 nodes for development in record time!**
-:fire::fire::fire:
+:fire::zap::fire::zap::fire:
 
 This is the **ultimate** GitHub repository to run your Neo3 blockchain node and start developing.
 
@@ -30,10 +30,32 @@ Then, check the running privatenet:
 docker ps
 ```
 
-And test if `neo-client1` is receiving some blocks:
+:zap:
+
+## Test a bit with JSON-RPC
+
+Get the latest block index of `neo-client1`:
 
 ```
 curl http://127.0.0.1:10332 -d '{"jsonrpc":"2.0","method":"getblockcount","params":[],"id":1}'
+```
+
+Open the wallet of the `neo-consesus` through JSON-RPC (**only for test purposes!**):
+
+```
+curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"openwallet","params":["wallet.json","one"],"id":1}'
+```
+
+List the addresses in `neo-consensus` wallet:
+
+```
+curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"listaddress","params":[],"id":1}'
+```
+
+Send 100 NEO from the wallet of `neo-consensus` to `neo-client1`'s address `AcozGpiGDpp9Vt9RMyokWNyu7hh341T2bb`:
+
+```
+curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"sendtoaddress","params":["43cf98eddbe047e198a3e5d57006311442a0ca15","AcozGpiGDpp9Vt9RMyokWNyu7hh341T2bb",100],"id":1}'
 ```
 
 ## :bulb: Info
@@ -57,7 +79,7 @@ The `docker-compose` file has 3 nodes:
   * WIF: `6PYK2m7buefqZZK6GXHaEuKcWuNAD4vcUydYJ9vXhTpKYSp8JyQggxnL8b`
   * JSON-RPC: `localhost:20332`
 
-* Wallet passphrase: `one`
+* **Wallet passphrase**: `one`
 
 ## :pray: Thanks
 
