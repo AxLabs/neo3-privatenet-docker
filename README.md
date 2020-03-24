@@ -4,12 +4,14 @@
 **Run Neo3 nodes for development in record time!**
 :fire::zap::fire::zap::fire:
 
-This is the **ultimate** GitHub repository to run your Neo3 blockchain node and start developing.
+This is the **ultimate** GitHub repository to run your**Neo3 blockchain** nodes and start developing.
 
 * :green_heart: This repository relies on [git sub-modules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) pointing to the official [neo-node](https://github.com/neo-project/neo-modules/) and [neo-modules](https://github.com/neo-project/neo-node/). Then, you can adjust the reference if you want to rely on the latest or an specific commit! :wink:
 * :rocket: The neo-cli image is built from the official `Dockerfile` from [neo-node](https://github.com/neo-project/neo-node/).
 * :star: Includes **all** available plugins from [neo-modules](https://github.com/neo-project/neo-modules/)
 * :boom: *It just fucking works.*
+
+Ah, we love GitHub stars to keep our motivation up to the roof! :star: :wink:
 
 ## :rotating_light: Dependencies
  - [docker](https://docs.docker.com/install/): [MacOS](https://docs.docker.com/docker-for-mac/install/) or [Windows](https://docs.docker.com/docker-for-windows/install/)
@@ -50,10 +52,22 @@ List the addresses in `neo-consensus` wallet:
 curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"listaddress","params":[],"id":1}'
 ```
 
-Send 100 NEO from the wallet of `neo-consensus` to `neo-client1`'s address `AcozGpiGDpp9Vt9RMyokWNyu7hh341T2bb`:
+Get the NEO balance of all addresses in `neo-consensus` wallet:
 
 ```
-curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"sendtoaddress","params":["43cf98eddbe047e198a3e5d57006311442a0ca15","AcozGpiGDpp9Vt9RMyokWNyu7hh341T2bb",100],"id":1}'
+curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"getbalance","params":["0x9bde8f209c88dd0e7ca3bf0af0f476cdd8207789"],"id":1}'
+```
+
+Get all NEP-5 balance of `neo-consensus`' address `AHE5cLhX5NjGB5R2PcdUvGudUoGUBDeHX4`, specifically:
+
+```
+curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"getnep5balances","params":["AHE5cLhX5NjGB5R2PcdUvGudUoGUBDeHX4"],"id":1}'
+```
+
+Send 100 NEO from `neo-consensus`' address `AHE5cLhX5NjGB5R2PcdUvGudUoGUBDeHX4` to `neo-client1`'s address `AcozGpiGDpp9Vt9RMyokWNyu7hh341T2bb`:
+
+```
+curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"sendfrom","params":["0x9bde8f209c88dd0e7ca3bf0af0f476cdd8207789","AHE5cLhX5NjGB5R2PcdUvGudUoGUBDeHX4","AcozGpiGDpp9Vt9RMyokWNyu7hh341T2bb",100],"id":1}'
 ```
 
 ## :bulb: Info
@@ -79,6 +93,21 @@ The `docker-compose` file has 3 nodes:
 
 * **Wallet passphrase**: `one`
 
+* **Asset addresses/hashes**:
+  * NEO: `0x9bde8f209c88dd0e7ca3bf0af0f476cdd8207789`
+  * GAS: `0x8c23f196d8a1bfd103a9dcb1f9ccf0c611377d3b`
+
+## :soon: Upcoming Features
+
+* Pre-fund wallets of `neo-client1` and `neo-client2` with plenty of NEO and GAS
+* Automatically deploy smart contracts specified in a given local directory
+* Option to start more consensus nodes, if desired
+* Wrapper API to specifically start, stop, and fetch specific info from nodes
+
+If you would like to see anything else, give us a shout and [open an issue](https://github.com/AxLabs/neo3-privatenet-docker/issues).
+
 ## :pray: Thanks
 
-We have to thank [hal0x2328](https://github.com/hal0x2328) for publishing [hal0x2328/neo3-privatenet-tutorial](https://github.com/hal0x2328/neo3-privatenet-tutorial) and inspire us to make things even simpler. :smiley: :wink:
+* We have to thank [hal0x2328](https://github.com/hal0x2328) for publishing [hal0x2328/neo3-privatenet-tutorial](https://github.com/hal0x2328/neo3-privatenet-tutorial) and inspire us to make things even simpler. :smiley: :wink:
+* Thanks for [Tommo-L](https://github.com/Tommo-L) by providing teh amazing [Tommo-L/NEO3-Development-Guide](https://github.com/Tommo-L/NEO3-Development-Guide) -- certainly, this development guide is a completent to the [AxLabs/neo3-privatenet-docker](https://github.com/AxLabs/neo3-privatenet-docker) repository.
+
