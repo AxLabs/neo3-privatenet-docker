@@ -1,7 +1,7 @@
 ﻿{
   "ApplicationConfiguration": {
     "Storage": {
-      "Engine": "MemoryStore"
+      "Engine": "LevelDBStore"
     },
     "Paths": {
       "Chain": "Consensus_Chain_{0}",
