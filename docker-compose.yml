@@ -13,6 +13,7 @@ services:
       target: NeoCliFinal
     image: docker.pkg.github.com/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:latest
     hostname: neo-consensus
+    container_name: neo-consensus
     depends_on:
       - build-neo-cli
     volumes:
@@ -30,6 +31,7 @@ services:
       target: NeoCliFinal
     image: docker.pkg.github.com/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:latest
     hostname: neo-client1
+    container_name: neo-client1
     depends_on:
       - build-neo-cli
       - neo-consensus
@@ -48,6 +50,7 @@ services:
       target: NeoCliFinal
     image: docker.pkg.github.com/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:latest
     hostname: neo-client2
+    container_name: neo-client2
     depends_on:
       - build-neo-cli
       - neo-consensus
