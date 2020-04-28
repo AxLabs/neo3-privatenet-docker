@@ -35,7 +35,7 @@
         "script": "EQwhA/HsPB4oPogN5unEifDyfBkAfFM4WqpMDJF8MgB57a3yEQtBMHOzuw==",
         "parameters": [
           {
-            "name": "parameter0",
+            "name": "signature",
             "type": "Signature"
           }
         ],
