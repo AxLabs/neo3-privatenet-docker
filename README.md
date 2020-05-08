@@ -85,21 +85,25 @@ curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"sendfrom","params":["
 
 ## :bulb: Info
 
-The `docker-compose` file has 3 nodes:
+The `docker-compose` file has 3 nodes, each with an account. The consensus node uses one public key for two accounts. One is a multisig account and the otherone a normal account. The multisig account is required as the validator account.
 
 * **Consensus**
-  * Multisig address (1/1): `AHE5cLhX5NjGB5R2PcdUvGudUoGUBDeHX4`
+  * Multisig address: `AHE5cLhX5NjGB5R2PcdUvGudUoGUBDeHX4`
+  * Multisig scritphash: `f68f181731a47036a99f04dad90043a744edec0f`
   * Address: `AK5AmzrrM3sw3kbCHXpHNeuK3kkjnneUrb`
+  * Scripthash: `be175fb771d5782282b7598b56c26a2f5ebf2d24`
   * PubKey: `03f1ec3c1e283e880de6e9c489f0f27c19007c53385aaa4c0c917c320079edadf2`
   * WIF: `6PYLVq2QgQqEdzP6cZRLSQyTbDzw1BqF2qCsE9duWEWj7bgmmPVAG9QQBn`
   * JSON-RPC: `localhost:40332`
 * **Client1**
   * Address: `AcozGpiGDpp9Vt9RMyokWNyu7hh341T2bb`
+  * Scripthash: `3d952ba848992ca5dc8b968a3d11af543601c1e6`
   * PubKey: `0267f519c2fe06b4034b3611973ab8bd5f061c45fcc684768239358930e1d1b157`
   * WIF: `6PYRVgZXqyLuf35mbBbhMQYxismi1YXfCrxAUsaFckNgrc93REzEiWez2R`
   * JSON-RPC: `localhost:10332`
 * **Client2**
   * Address: `AQwwB4Y6yvRhkuQ3ejHk8WRjKGGvkfoz8U`
+  * Scripthash: `6132cfbd7229586864203f524848b9225f3ca064`
   * PubKey: `020af46dc2fda6ac77cabf1e8004c84f42f16f31bcf715cfe6ad1c896b48d33ff5`
   * WIF: `6PYK2m7buefqZZK6GXHaEuKcWuNAD4vcUydYJ9vXhTpKYSp8JyQggxnL8b`
   * JSON-RPC: `localhost:20332`
