@@ -3,6 +3,7 @@
         "Magic": 769,
         "AddressVersion": 23,
         "MillisecondsPerBlock": 15000,
+        "ValidatorsCount": 1,
         "StandbyValidators": [
             "03f1ec3c1e283e880de6e9c489f0f27c19007c53385aaa4c0c917c320079edadf2",
         ],
