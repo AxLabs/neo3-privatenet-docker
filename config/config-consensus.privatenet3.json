@@ -19,7 +19,7 @@
     },
     "UnlockWallet": {
       "Path": "wallet.json",
-      "Password": "one",
+      "Password": "neo",
       "StartConsensus": true,
       "IsActive": true
       },
