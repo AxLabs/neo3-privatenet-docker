@@ -97,33 +97,33 @@ curl http://127.0.0.1:10332 -d '{"jsonrpc":"2.0","method":"getbalance","params":
 
 ## :bulb: Info
 
-The `docker-compose` file has 3 nodes, each with an account. The consensus node uses one public key for two accounts. One is a multisig account and the otherone a normal account. The multisig account is required as the validator account.
+The `docker-compose` file has 3 nodes, each with an account. The consensus node uses one public key for two accounts. One is a multisig account and the other a normal account. The multisig account is required as the validator account. Private keys are encrypted according to NEP-2.
 
 * **Consensus**
   * MultiSig Address: `AFs8hMHrS8emaPP4oyTuf5uKPuAW6HZ2DF`
     * Script: `110c2102c0b60c995bc092e866f15a37c176bb59b7ebacf069ba94c0ebf561cb8f956238110b41c330181e`
     * ScritpHash: `55b842d631f43f23257a27992ac2b53169a4fe00`
     * PubKey: `02c0b60c995bc092e866f15a37c176bb59b7ebacf069ba94c0ebf561cb8f956238`
-    * WIF: `6PYV39zSDnpCb9ecybeL3z6XrLTpKy1AugUGd6DYFFNELHv9aLj6M7KGD2`
+    * PrivKey: `6PYV39zSDnpCb9ecybeL3z6XrLTpKy1AugUGd6DYFFNELHv9aLj6M7KGD2`
   * Address: `AVGpjFiocR1BdYhbYWqB6Ls6kcmzx4FWhm`
     * ScriptHash: `969a77db482f74ce27105f760efa139223431394`
     * Script: `0c2102c0b60c995bc092e866f15a37c176bb59b7ebacf069ba94c0ebf561cb8f9562380b418a6b1e75`
     * PubKey: `02c0b60c995bc092e866f15a37c176bb59b7ebacf069ba94c0ebf561cb8f956238`
-    * WIF: `6PYV39zSDnpCb9ecybeL3z6XrLTpKy1AugUGd6DYFFNELHv9aLj6M7KGD2`
+    * PrivKey: `6PYV39zSDnpCb9ecybeL3z6XrLTpKy1AugUGd6DYFFNELHv9aLj6M7KGD2`
   * JSON-RPC: `localhost:40332`
 * **Client1**
   * Address: `Aa1rZbE1k8fXTwzaxxsPRtJYPwhDQjWRFZ`
     * Script: `0c2102200284598c6c1117f163dd938a4c8014cf2cf1164c4b7197f347109db50eae7c0b418a6b1e75`
     * ScripthHash: `df133e846b1110843ac357fc8bbf05b4a32e17c8`
     * PubKey: `02200284598c6c1117f163dd938a4c8014cf2cf1164c4b7197f347109db50eae7c`
-    * WIF: `6PYVydad4kpTjpkUcQXgrqtHnAWxgHYpAHGfCjBreBZkbTBhDXDqv9d8BG`
+    * PrivKey: `6PYVydad4kpTjpkUcQXgrqtHnAWxgHYpAHGfCjBreBZkbTBhDXDqv9d8BG`
   * JSON-RPC: `localhost:10332`
 * **Client2**
   * Address: `ATpVyfpFwE2SzNGSvXDNrtRyfVLajhn7yN`
     * Script: `0c2102bba9fddcc32f1edc613202bd9fafeaed79122909dfa6161fdd27d0d5a28854c10b418a6b1e75`
     * ScriptHash: `f6da07cd9331429487e9406255d93d9225ab2084`
     * PubKey: `02bba9fddcc32f1edc613202bd9fafeaed79122909dfa6161fdd27d0d5a28854c1`
-    * WIF: `6PYKRJCApfmkkXd8deyAzWpagBBqT5Wob7mfdXTDVh14FdcJ9qBTaLyQUx`
+    * PrivKey: `6PYKRJCApfmkkXd8deyAzWpagBBqT5Wob7mfdXTDVh14FdcJ9qBTaLyQUx`
   * JSON-RPC: `localhost:20332`
 
 * **Wallet passphrase**: `neo`
