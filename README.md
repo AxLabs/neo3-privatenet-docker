@@ -100,16 +100,16 @@ curl http://127.0.0.1:10332 -d '{"jsonrpc":"2.0","method":"getbalance","params":
 The `docker-compose` file has 3 nodes, each with an account. The consensus node uses one public key for two accounts. One is a multisig account and the other a normal account. The multisig account is required as the validator account. Private keys are encrypted according to NEP-2.
 
 * **Consensus**
-  * MultiSig Address: `AFs8hMHrS8emaPP4oyTuf5uKPuAW6HZ2DF`
-    * Script: `110c2102c0b60c995bc092e866f15a37c176bb59b7ebacf069ba94c0ebf561cb8f956238110b41c330181e`
-    * ScritpHash: `55b842d631f43f23257a27992ac2b53169a4fe00`
-    * PubKey: `02c0b60c995bc092e866f15a37c176bb59b7ebacf069ba94c0ebf561cb8f956238`
-    * PrivKey: `6PYV39zSDnpCb9ecybeL3z6XrLTpKy1AugUGd6DYFFNELHv9aLj6M7KGD2`
   * Address: `AVGpjFiocR1BdYhbYWqB6Ls6kcmzx4FWhm`
     * ScriptHash: `969a77db482f74ce27105f760efa139223431394`
     * Script: `0c2102c0b60c995bc092e866f15a37c176bb59b7ebacf069ba94c0ebf561cb8f9562380b418a6b1e75`
     * PubKey: `02c0b60c995bc092e866f15a37c176bb59b7ebacf069ba94c0ebf561cb8f956238`
-    * PrivKey: `6PYV39zSDnpCb9ecybeL3z6XrLTpKy1AugUGd6DYFFNELHv9aLj6M7KGD2`
+    * PrivKey: `e6e919577dd7b8e97805151c05ae07ff4f752654d6d8797597aca989c02c4cb3`
+    * NEP-2 encrypted: `6PYV39zSDnpCb9ecybeL3z6XrLTpKy1AugUGd6DYFFNELHv9aLj6M7KGD2`
+    * WIF: `L4xa4S78qj87q9FRkMQDeZsrymQG6ThR5oczagNNNnBrWRjicF36`
+  * MultiSig Address (from the above account): `AFs8hMHrS8emaPP4oyTuf5uKPuAW6HZ2DF`
+    * Script: `110c2102c0b60c995bc092e866f15a37c176bb59b7ebacf069ba94c0ebf561cb8f956238110b41c330181e`
+    * ScritpHash: `55b842d631f43f23257a27992ac2b53169a4fe00`
   * JSON-RPC: `localhost:40332`
 * **Client1**
   * Address: `Aa1rZbE1k8fXTwzaxxsPRtJYPwhDQjWRFZ`
