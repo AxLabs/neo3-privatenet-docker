@@ -124,7 +124,8 @@ The `docker-compose` file has 3 nodes, each with an account. The consensus node 
     * Script: `0c2102bba9fddcc32f1edc613202bd9fafeaed79122909dfa6161fdd27d0d5a28854c10b418a6b1e75`
     * ScriptHash: `f6da07cd9331429487e9406255d93d9225ab2084`
     * PubKey: `02bba9fddcc32f1edc613202bd9fafeaed79122909dfa6161fdd27d0d5a28854c1`
-    * PrivKey: `6PYKRJCApfmkkXd8deyAzWpagBBqT5Wob7mfdXTDVh14FdcJ9qBTaLyQUx`
+    * PrivKey: `3a100280baf46ea7db17bc01b53365891876b4a2db11028dbc1ccb8c782725f8`
+    * NEP-2 encrypted: `6PYKRJCApfmkkXd8deyAzWpagBBqT5Wob7mfdXTDVh14FdcJ9qBTaLyQUx`
   * JSON-RPC: `localhost:20332`
 
 * **Wallet passphrase**: `neo`
