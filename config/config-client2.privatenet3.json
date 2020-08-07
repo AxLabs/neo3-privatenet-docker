@@ -4,7 +4,7 @@
       "Engine": "LevelDBStore"
     },
     "Paths": {
-      "Chain": "Client_Chain_{0}",
+      "Chain": "Client_Chain_{0}"
     },
     "P2P": {
       "Port": 20333,
@@ -19,7 +19,7 @@
     },
     "UnlockWallet": {
       "Path": "wallet.json",
-      "Password": "one",
+      "Password": "neo",
       "StartConsensus": false,
       "IsActive": false
       },
