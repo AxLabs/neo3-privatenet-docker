@@ -45,6 +45,13 @@ If you want to stop everything and start from **scratch**:
 docker-compose down -v
 ```
 
+After you change something in the config files and want to rebuild everything, without docker cache, run the following:
+
+```
+docker-compose build --no-cache
+
+```
+
 ## :zap: Test a bit through JSON-RPC
 
 * Get the latest block index of `neo-client1`:
@@ -65,22 +72,16 @@ curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"openwallet","params":
 curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"listaddress","params":[],"id":1}'
 ```
 
-* Get the NEO balance of all addresses in `neo-consensus` wallet:
+* Get all NEP-5 balance of `neo-consensus`' address `NX8GreRFGFK5wpGMWetpX93HmtrezGogzk`, specifically:
 
 ```
-curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"getbalance","params":["0xde5f57d430d3dece511cf975a8d37848cb9e0525"],"id":1}'
+curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"getnep5balances","params":["NX8GreRFGFK5wpGMWetpX93HmtrezGogzk"],"id":1}'
 ```
 
-* Get all NEP-5 balance of `neo-consensus`' address `AGZLEiwUyCC4wiL5sRZA3LbxWPs9WrZeyN`, specifically:
+* Send 100 NEO from `neo-consensus`' address `NX8GreRFGFK5wpGMWetpX93HmtrezGogzk` to `neo-client1`'s address `NLnyLtep7jwyq1qhNPkwXbJpurC4jUT8ke`:
 
 ```
-curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"getnep5balances","params":["AGZLEiwUyCC4wiL5sRZA3LbxWPs9WrZeyN"],"id":1}'
-```
-
-* Send 100 NEO from `neo-consensus`' address `AGZLEiwUyCC4wiL5sRZA3LbxWPs9WrZeyN` to `neo-client1`'s address `AZt9DgwW8PKSEQsa9QLX86SyE1DSNjSbsS`:
-
-```
-curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"sendfrom","params":["0xde5f57d430d3dece511cf975a8d37848cb9e0525","AGZLEiwUyCC4wiL5sRZA3LbxWPs9WrZeyN","AZt9DgwW8PKSEQsa9QLX86SyE1DSNjSbsS",100],"id":1}'
+curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"sendfrom","params":["0xde5f57d430d3dece511cf975a8d37848cb9e0525","NX8GreRFGFK5wpGMWetpX93HmtrezGogzk","NLnyLtep7jwyq1qhNPkwXbJpurC4jUT8ke",100],"id":1}'
 ```
 
 * Open the wallet of the `neo-client1` through JSON-RPC (**only for test purposes!**):
@@ -89,10 +90,10 @@ curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"sendfrom","params":["
 curl http://127.0.0.1:10332 -d '{"jsonrpc":"2.0","method":"openwallet","params":["wallet.json","neo"],"id":1}'
 ```
 
-* Get the NEO balance of `neo-client1` wallet:
+* Get all NEP-5 balance of `neo-client1`' address `NLnyLtep7jwyq1qhNPkwXbJpurC4jUT8ke`:
 
 ```
-curl http://127.0.0.1:10332 -d '{"jsonrpc":"2.0","method":"getbalance","params":["0xde5f57d430d3dece511cf975a8d37848cb9e0525"],"id":1}'
+curl http://127.0.0.1:10332 -d '{"jsonrpc":"2.0","method":"getnep5balances","params":["NLnyLtep7jwyq1qhNPkwXbJpurC4jUT8ke"],"id":1}'
 ```
 
 ## :bulb: Info
@@ -100,34 +101,34 @@ curl http://127.0.0.1:10332 -d '{"jsonrpc":"2.0","method":"getbalance","params":
 The `docker-compose` file has 3 nodes, each with an account. The consensus node uses one public key for two accounts. One is a multisig account and the other a normal account. The multisig account is required as the validator account. Private keys are encrypted according to NEP-2.
 
 * **Consensus**
-  * Address: `AJunErzotcQTNWP2qktA7LgkXZVdHea97H`
-    * ScriptHash: `cc45cc8987b0e35371f5685431e3c8eeea306722`
-    * Script: `0c21026aa8fe6b4360a67a530e23c08c6a72525afde34719c5436f9d3ced759f939a3d0b4195440d78`
-    * PubKey: `026aa8fe6b4360a67a530e23c08c6a72525afde34719c5436f9d3ced759f939a3d`
-    * PrivKey: `7fe9d4b69f85c1fe15387a76e79d2b95c4c9e3fe756de3435afbc077d99d5346`
-    * NEP-2 encrypted: `6PYLykbKcbwnCuTJiQQ5PYu5uH9NgwGYLoMyTUabRxRJUsiA9GP8NgorUV`
-    * WIF: `L1WMhxazScMhUrdv34JqQb1HFSQmWeN2Kpc1R9JGKwL7CDNP21uR`
-  * MultiSig Address (from the above account, 1/1): `AGZLEiwUyCC4wiL5sRZA3LbxWPs9WrZeyN`
-    * Script: `110c21026aa8fe6b4360a67a530e23c08c6a72525afde34719c5436f9d3ced759f939a3d110b41138defaf`
-    * ScritpHash: `afaed076854454449770763a628f379721ea9808`
+  * Address: `NZNos2WqTbu5oCgyfss9kUJgBXJqhuYAaj`
+    * ScriptHash: `0f46dc4287b70117ce8354924b5cb3a47215ad93`
+    * Script: `0c2102163946a133e3d2e0d987fb90cb01b060ed1780f1718e2da28edf13b965fd2b600b4195440d78`
+    * PubKey: `02163946a133e3d2e0d987fb90cb01b060ed1780f1718e2da28edf13b965fd2b60`
+    * PrivKey: `c2b590be636cb7a2377d40bf13d948bed85fe45e155ecf839dba0df45e4a35f0`
+    * NEP-2 encrypted: `6PYNxavNrrWiCNgLtd5WJjerGUwJD7LPp5Pzt85azUo4nLHL9dUkJaYtAo`
+    * WIF: `L3kCZj6QbFPwbsVhxnB8nUERDy4mhCSrWJew4u5Qh5QmGMfnCTda`
+  * MultiSig Address (from the above account, 1/1): `NX8GreRFGFK5wpGMWetpX93HmtrezGogzk`
+    * Script: `110c2102163946a133e3d2e0d987fb90cb01b060ed1780f1718e2da28edf13b965fd2b60110b41138defaf`
+    * ScritpHash: `ec2b32ed87e3747e826a0abd7229cb553220fd7a`
   * JSON-RPC: `localhost:40332`
 * **Client1**
-  * Address: `AZt9DgwW8PKSEQsa9QLX86SyE1DSNjSbsS`
-    * Script: `0c21030ba3f5cb0676ef4eadc89f4da74a6eade644b87aed9a123a117f144ff247052c0b4195440d78`
-    * ScripthHash: `f7014e6d52fe8f94f7c57acd8cfb875b4ac2a1c6`
-    * PubKey: `030ba3f5cb0676ef4eadc89f4da74a6eade644b87aed9a123a117f144ff247052c`
-    * PrivKey: `cc78d926620ba76a5521aa0d373cf9ba4acf7f99bba48e459b8482104d1626f9`
-    * NEP-2 encrypted: `6PYXCysTUt8kXppraRBk8aUwYGPqpxESxjSmbHDHjXXBRJnAbVZD6zdveL`
-    * WIF: `L45BGYyybk91pvwH3Mj1CfDZ11GGQLVPr6qfzpWugeP4WeJZyfki`
+  * Address: `NLnyLtep7jwyq1qhNPkwXbJpurC4jUT8ke`
+    * Script: `0c2102249425a06b5a1f8e6133fc79afa2c2b8430bf9327297f176761df79e8d8929c50b4195440d78`
+    * ScripthHash: `d6c712eb53b1a130f59fd4e5864bdac27458a509`
+    * PubKey: `02249425a06b5a1f8e6133fc79afa2c2b8430bf9327297f176761df79e8d8929c5`
+    * PrivKey: `0f7d2f77f3229178650b958eb286258f0e6533d0b86ec389b862c440c6511a4b`
+    * NEP-2 encrypted: `6PYVEi6ZGdsLoCYbbGWqoYef7VWMbKwcew86m5fpxnZRUD8tEjainBgQW1`
+    * WIF: `KwjpUzqHThukHZqw5zu4QLGJXessUxwcG3GinhJeBmqj4uKM4K5z`
   * JSON-RPC: `localhost:10332`
 * **Client2**
-  * Address: `ARhJPYxmizqheBQA2dSQAHWfQQsbTSba2S`
-    * Script: `0c2102b0aa85eaf261b000947dd6a9753b91bfc7ab058951e2d838cf3ecdab81cc291d0b4195440d78`
-    * ScriptHash: `b1e8f1ce80c81dc125e7d0e75e5ce3f7f4d4d36c`
-    * PubKey: `02b0aa85eaf261b000947dd6a9753b91bfc7ab058951e2d838cf3ecdab81cc291d`
-    * PrivKey: `a7038726c5a127989d78593c423e3dad93b2d74db90a16c0a58468c9e6617a87`
-    * NEP-2 encrypted: `6PYSAe53CzgXq9yg7hmHQogZHxasVY2gYGB9rLXNbdggFyy2HBDdJhXZSp`
-    * WIF: `L2pN4EbagTuk9Kiib8sjRmMQznxqCVEs1HR8DRaxmnPicjg9FdNc`
+  * Address: `NWcx4EfYdfqn5jNjDz8AHE6hWtWdUGDdmy`
+    * Script: `0c21031ccaaa46df7c494f442698c8c17c09311e3615c2dc042cbd3afeaba60fa407400b4195440d78`
+    * ScriptHash: `3d255cc204f151498dcac95da244babb895e7175`
+    * PubKey: `031ccaaa46df7c494f442698c8c17c09311e3615c2dc042cbd3afeaba60fa40740`
+    * PrivKey: `3d7f55bf3fd8bfdaa8c8dd36bc5b4e003f8c90a39da9916fcecf38c5be94bd1c`
+    * NEP-2 encrypted: `6PYSQWBqZE5oEFdMGCJ3xR7bz6ezz814oKE7GqwB9i5uhtUzkshe9B6YGB`
+    * WIF: `KyHFg26DHTUWZtmUVTRqDHg8uVvZi9dr5zV3tQ22JZUjvWVCFvtw`
   * JSON-RPC: `localhost:20332`
 
 * **Wallet passphrase**: `neo`
@@ -135,6 +136,9 @@ The `docker-compose` file has 3 nodes, each with an account. The consensus node 
 * **Asset addresses/hashes**:
   * NEO: `0xde5f57d430d3dece511cf975a8d37848cb9e0525`
   * GAS: `0x668e0c1f9d7b70a99dd9e06eadd4c784d641afbc`
+
+* **Address Info**:
+  * All the addresses have the `AddressVersion` set to `0x35` (which is the [default used in the neo-project](https://github.com/neo-project/neo/blob/402e9b19d80bb9093601f5ac57ff0cdc3c6cf6ab/src/neo/ProtocolSettings.cs#L50))
 
 ## :soon: Upcoming Features
 
