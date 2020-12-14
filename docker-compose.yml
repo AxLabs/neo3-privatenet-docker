@@ -11,7 +11,7 @@ services:
       context: ./neo-modules
       dockerfile: ../docker/Dockerfile
       target: NeoCliFinal
-    image: docker.pkg.github.com/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:latest
+    image: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:latest
     hostname: neo-consensus
     container_name: neo-consensus
     depends_on:
@@ -29,7 +29,7 @@ services:
       context: ./neo-modules
       dockerfile: ../docker/Dockerfile
       target: NeoCliFinal
-    image: docker.pkg.github.com/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:latest
+    image: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:latest
     hostname: neo-client1
     container_name: neo-client1
     depends_on:
@@ -48,7 +48,7 @@ services:
       context: ./neo-modules
       dockerfile: ../docker/Dockerfile
       target: NeoCliFinal
-    image: docker.pkg.github.com/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:latest
+    image: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:latest
     hostname: neo-client2
     container_name: neo-client2
     depends_on:
