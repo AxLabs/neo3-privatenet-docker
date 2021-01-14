@@ -134,8 +134,8 @@ The `docker-compose` file has 3 nodes, each with an account. The consensus node 
 * **Wallet passphrase**: `neo`
 
 * **Asset addresses/hashes**:
-  * NEO: `0xde5f57d430d3dece511cf975a8d37848cb9e0525`
-  * GAS: `0x668e0c1f9d7b70a99dd9e06eadd4c784d641afbc`
+  * NEO: `0x0a46e2e37c9987f570b4af253fb77e7eef0f72b6`
+  * GAS: `0xa6a6c15dcdc9b997dac448b6926522d22efeedfb`
 
 * **Address Info**:
   * All the addresses have the `AddressVersion` set to `0x35` (which is the [default used in the neo-project](https://github.com/neo-project/neo/blob/402e9b19d80bb9093601f5ac57ff0cdc3c6cf6ab/src/neo/ProtocolSettings.cs#L50))
