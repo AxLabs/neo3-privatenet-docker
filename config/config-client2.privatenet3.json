@@ -1,28 +1,23 @@
 ﻿{
   "ApplicationConfiguration": {
-    "Storage": {
-      "Engine": "LevelDBStore"
+    "Logger": {
+      "Path": "Logs_{0}",
+      "ConsoleOutput": false,
+      "Active": false
     },
-    "Paths": {
-      "Chain": "Client_Chain_{0}"
+    "Storage": {
+      "Engine": "LevelDBStore",
+      "Path": "Data_LevelDB_{0}"
     },
     "P2P": {
       "Port": 20333,
       "WsPort": 20334
     },
-    "RPC": {
-      "BindAddress": "0.0.0.0",
-      "Port": 20332,
-      "SslCert": "",
-      "SslCertPassword": "",
-      "MaxGasInvoke": 10
-    },
     "UnlockWallet": {
       "Path": "wallet.json",
       "Password": "neo",
-      "StartConsensus": false,
-      "IsActive": false
-      },
+      "IsActive": true
+    },
     "PluginURL": "https://github.com/neo-project/neo-modules/releases/download/v{1}/{0}.zip"
   }
 }

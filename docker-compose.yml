@@ -4,14 +4,14 @@ services:
 
   build-neo-cli:
     build: ./neo-node
-    image: neo-project/neo-node/neo-cli:latest
+    image: neo-project/neo-node/neo-cli:master-latest
 
   neo-consensus:
     build:
       context: ./neo-modules
       dockerfile: ../docker/Dockerfile
       target: NeoCliFinal
-    image: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:latest
+    image: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:master-latest
     hostname: neo-consensus
     container_name: neo-consensus
     depends_on:
@@ -21,6 +21,7 @@ services:
       - ./config/protocol-consensus.privatenet3.json:/neo-cli/protocol.json:ro
       - ./config/wallet-consensus.privatenet3.json:/neo-cli/wallet.json:rw
       - ./config/rpcserver.config-consensus.json:/neo-cli/Plugins/RpcServer/config.json:ro
+      - ./config/dbft.config-consensus.json:/neo-cli/Plugins/dBFT/config.json:ro
     ports:
       - "40332:40332"
 
@@ -29,7 +30,7 @@ services:
       context: ./neo-modules
       dockerfile: ../docker/Dockerfile
       target: NeoCliFinal
-    image: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:latest
+    image: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:master-latest
     hostname: neo-client1
     container_name: neo-client1
     depends_on:
@@ -48,7 +49,7 @@ services:
       context: ./neo-modules
       dockerfile: ../docker/Dockerfile
       target: NeoCliFinal
-    image: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:latest
+    image: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:master-latest
     hostname: neo-client2
     container_name: neo-client2
     depends_on:
