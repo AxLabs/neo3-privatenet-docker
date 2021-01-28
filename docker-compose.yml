@@ -21,7 +21,7 @@ services:
       - ./config/protocol-consensus.privatenet3.json:/neo-cli/protocol.json:ro
       - ./config/wallet-consensus.privatenet3.json:/neo-cli/wallet.json:rw
       - ./config/rpcserver.config-consensus.json:/neo-cli/Plugins/RpcServer/config.json:ro
-      - ./config/dbft.config-consensus.json:/neo-cli/Plugins/dBFT/config.json:ro
+      - ./config/dbft.config-consensus.json:/neo-cli/Plugins/DBFTPlugin/config.json:ro
     ports:
       - "40332:40332"
 
