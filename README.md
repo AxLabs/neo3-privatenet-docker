@@ -72,10 +72,10 @@ curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"openwallet","params":
 curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"listaddress","params":[],"id":1}'
 ```
 
-* Get all NEP-5 balance of `neo-consensus`' address `NX8GreRFGFK5wpGMWetpX93HmtrezGogzk`, specifically:
+* Get all NEP-17 balance of `neo-consensus`' address `NX8GreRFGFK5wpGMWetpX93HmtrezGogzk`, specifically:
 
 ```
-curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"getnep5balances","params":["NX8GreRFGFK5wpGMWetpX93HmtrezGogzk"],"id":1}'
+curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"getnep17balances","params":["NX8GreRFGFK5wpGMWetpX93HmtrezGogzk"],"id":1}'
 ```
 
 * Send 100 NEO from `neo-consensus`' address `NX8GreRFGFK5wpGMWetpX93HmtrezGogzk` to `neo-client1`'s address `NLnyLtep7jwyq1qhNPkwXbJpurC4jUT8ke`:
@@ -90,10 +90,10 @@ curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"sendfrom","params":["
 curl http://127.0.0.1:10332 -d '{"jsonrpc":"2.0","method":"openwallet","params":["wallet.json","neo"],"id":1}'
 ```
 
-* Get all NEP-5 balance of `neo-client1`' address `NLnyLtep7jwyq1qhNPkwXbJpurC4jUT8ke`:
+* Get all NEP-17 balance of `neo-client1`' address `NLnyLtep7jwyq1qhNPkwXbJpurC4jUT8ke`:
 
 ```
-curl http://127.0.0.1:10332 -d '{"jsonrpc":"2.0","method":"getnep5balances","params":["NLnyLtep7jwyq1qhNPkwXbJpurC4jUT8ke"],"id":1}'
+curl http://127.0.0.1:10332 -d '{"jsonrpc":"2.0","method":"getnep17balances","params":["NLnyLtep7jwyq1qhNPkwXbJpurC4jUT8ke"],"id":1}'
 ```
 
 ## :bulb: Info
