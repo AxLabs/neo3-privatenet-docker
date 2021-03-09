@@ -6,7 +6,7 @@
         "MaxTraceableBlocks": 2102400,
         "ValidatorsCount": 1,
         "StandbyCommittee": [
-            "02163946a133e3d2e0d987fb90cb01b060ed1780f1718e2da28edf13b965fd2b60"
+            "02ed6a5a41133de5cfd72aa58c03c4744851177d1bcacdf4a989864ed1a5ca307a"
         ],
         "SeedList": [
             "neo-consensus:40333"
