@@ -25,7 +25,6 @@ services:
       - build-neo-cli-with-plugins
     volumes:
       - ./config/config-consensus.privatenet3.json:/neo-cli/config.json:ro
-      - ./config/protocol-consensus.privatenet3.json:/neo-cli/protocol.json:ro
       - ./config/wallet-consensus.privatenet3.json:/neo-cli/wallet.json:rw
       - ./config/rpcserver.config-consensus.json:/neo-cli/Plugins/RpcServer/config.json:ro
       - ./config/dbft.config-consensus.json:/neo-cli/Plugins/DBFTPlugin/config.json:ro
@@ -41,7 +40,6 @@ services:
       - neo-consensus
     volumes:
       - ./config/config-client1.privatenet3.json:/neo-cli/config.json:ro
-      - ./config/protocol-client1.privatenet3.json:/neo-cli/protocol.json:ro
       - ./config/wallet-client1.privatenet3.json:/neo-cli/wallet.json:rw
       - ./config/rpcserver.config-client1.json:/neo-cli/Plugins/RpcServer/config.json:ro
     ports:
@@ -56,7 +54,6 @@ services:
       - neo-consensus
     volumes:
       - ./config/config-client2.privatenet3.json:/neo-cli/config.json:ro
-      - ./config/protocol-client2.privatenet3.json:/neo-cli/protocol.json:ro
       - ./config/wallet-client2.privatenet3.json:/neo-cli/wallet.json:rw
       - ./config/rpcserver.config-client2.json:/neo-cli/Plugins/RpcServer/config.json:ro
     ports:

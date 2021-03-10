@@ -1,7 +1,7 @@
 ﻿{
   "ApplicationConfiguration": {
     "Logger": {
-      "Path": "Logs_{0}",
+      "Path": "Logs",
       "ConsoleOutput": true,
       "Active": true
     },
@@ -19,5 +19,18 @@
       "IsActive": true
     },
     "PluginURL": "https://github.com/neo-project/neo-modules/releases/download/v{1}/{0}.zip"
+  },
+  "ProtocolConfiguration": {
+    "Magic": 769,
+    "AddressVersion": 53,
+    "MillisecondsPerBlock": 15000,
+    "MaxTraceableBlocks": 2102400,
+    "ValidatorsCount": 1,
+    "StandbyCommittee": [
+        "02ed6a5a41133de5cfd72aa58c03c4744851177d1bcacdf4a989864ed1a5ca307a"
+    ],
+    "SeedList": [
+        "localhost:40333"
+    ]
   }
 }
