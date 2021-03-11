@@ -72,16 +72,16 @@ curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"openwallet","params":
 curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"listaddress","params":[],"id":1}'
 ```
 
-* Get all NEP-17 balance of `neo-consensus`' address `NenSmoMsddbu1GPho4PaQ6JyutsrCiMErN`, specifically:
+* Get all NEP-17 balance of `neo-consensus`' address `NKvR5WeczCQMcVWQD9aaMqegfEoCBXGWpW`, specifically:
 
 ```
-curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"getnep17balances","params":["NenSmoMsddbu1GPho4PaQ6JyutsrCiMErN"],"id":1}'
+curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"getnep17balances","params":["NKvR5WeczCQMcVWQD9aaMqegfEoCBXGWpW"],"id":1}'
 ```
 
-* Send 100 NEO from `neo-consensus`' address `NenSmoMsddbu1GPho4PaQ6JyutsrCiMErN` to `neo-client1`'s address `Nh68D3LxUnNyXd5GXDoSrWxwwMRPZvQfcf`:
+* Send 100 NEO from `neo-consensus`' address `NKvR5WeczCQMcVWQD9aaMqegfEoCBXGWpW` to `neo-client1`'s address `NdihqSLYTf1B1WYuzhM52MNqvCNPJKLZaz`:
 
 ```
-curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"sendfrom","params":["0xef4073a0f2b305a38ec4050e4d3d28bc40ea63f5","NX8GreRFGFK5wpGMWetpX93HmtrezGogzk","Nh68D3LxUnNyXd5GXDoSrWxwwMRPZvQfcf",100],"id":1}'
+curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"sendfrom","params":["0xef4073a0f2b305a38ec4050e4d3d28bc40ea63f5","NKvR5WeczCQMcVWQD9aaMqegfEoCBXGWpW", "NdihqSLYTf1B1WYuzhM52MNqvCNPJKLZaz",100],"id":1}'
 ```
 
 * Open the wallet of the `neo-client1` through JSON-RPC (**only for test purposes!**):
@@ -90,10 +90,10 @@ curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"sendfrom","params":["
 curl http://127.0.0.1:10332 -d '{"jsonrpc":"2.0","method":"openwallet","params":["wallet.json","neo"],"id":1}'
 ```
 
-* Get all NEP-17 balance of `neo-client1`' address `Nh68D3LxUnNyXd5GXDoSrWxwwMRPZvQfcf`:
+* Get all NEP-17 balance of `neo-client1`' address `NdihqSLYTf1B1WYuzhM52MNqvCNPJKLZaz` (wait 15 seconds before executing the command, due to the block generation interval): 
 
 ```
-curl http://127.0.0.1:10332 -d '{"jsonrpc":"2.0","method":"getnep17balances","params":["NLnyLtep7jwyq1qhNPkwXbJpurC4jUT8ke"],"id":1}'
+curl http://127.0.0.1:10332 -d '{"jsonrpc":"2.0","method":"getnep17balances","params":["NdihqSLYTf1B1WYuzhM52MNqvCNPJKLZaz"],"id":1}'
 ```
 
 ## :bulb: Info
@@ -101,34 +101,34 @@ curl http://127.0.0.1:10332 -d '{"jsonrpc":"2.0","method":"getnep17balances","pa
 The `docker-compose` file has 3 nodes, each with an account. The consensus node uses one public key for two accounts. One is a multisig account and the other a normal account. The multisig account is required as the validator account. Private keys are encrypted according to NEP-2.
 
 * **Consensus**
-  * Address: `NWe7QPpyQEs4hn2ERrpYhYKtTmnrgGyRTA`
-    * ScriptHash: `9aa087800d1692c1a5a7bc6fe3fb59de9396a975`
-    * Script: `0c2102ed6a5a41133de5cfd72aa58c03c4744851177d1bcacdf4a989864ed1a5ca307a41747476aa`
-    * PubKey: `02ed6a5a41133de5cfd72aa58c03c4744851177d1bcacdf4a989864ed1a5ca307a`
+  * Address: `NUrPrFLETzoe7N2FLi2dqTvLwc9L2Em84K`
+    * ScriptHash: `0336edcdb5bfe515685fab7aab26937f6f0e0c62`
+    * Script: `0c21036cfcc5d0550d0481b66f58e25067280f042b4933fc013dc4930ce2a4194c9d9441747476aa`
+    * PubKey: `036cfcc5d0550d0481b66f58e25067280f042b4933fc013dc4930ce2a4194c9d94`
     * PrivKey: ``
-    * NEP-2 encrypted: `6PYQBmoBLW6aMhsk6o6HwLXX1b8ZRMmDERgeqdixq1jgRw5s4fRGLKX3v7`
-    * WIF: `L3Bzy2gbdZhg19jwtUjrFTEoK27MQYuUetw3ZrYEhfs5UZVc1ZzN`
-  * MultiSig Address (from the account above, 1/1): `NenSmoMsddbu1GPho4PaQ6JyutsrCiMErN`
-    * Script: `110c2102ed6a5a41133de5cfd72aa58c03c4744851177d1bcacdf4a989864ed1a5ca307a11417bce6ca5`
-    * ScritpHash: `d3e7a3499a3e5efe21ae939485677c1f3417fece`
+    * NEP-2 encrypted: `6PYRSp9YqwcNpUz4bgvFi74CNQBGRkx3snsy2og53a7NLrRwtYTXpBFfye`
+    * WIF: `L24Qst64zASL2aLEKdJtRLnbnTbqpcRNWkWJ3yhDh2CLUtLdwYK2`
+  * MultiSig Address (from the account above, 1/1): `NKvR5WeczCQMcVWQD9aaMqegfEoCBXGWpW`
+    * Script: `110c21036cfcc5d0550d0481b66f58e25067280f042b4933fc013dc4930ce2a4194c9d9411417bce6ca5`
+    * ScritpHash: `483fa7396b0c6a4886bb07364ba3f9ba249d1500`
   * JSON-RPC: `localhost:40332`
 * **Client1**
-  * Address: `Nh68D3LxUnNyXd5GXDoSrWxwwMRPZvQfcf`
-    * Script: `0c2102a6b25bd017f893bf1b19493004f221d5c6c2838f8e8414beddead8e1fe3ca9cd41747476aa`
-    * ScripthHash: `e955e46cf825ebe2a1f8d0e4ae0995fa175546e8`
-    * PubKey: `02a6b25bd017f893bf1b19493004f221d5c6c2838f8e8414beddead8e1fe3ca9cd`
+  * Address: `NdihqSLYTf1B1WYuzhM52MNqvCNPJKLZaz`
+    * Script: `0c2103a24144ca271aa3cec6516e3ac858138ece0a4d071c3868209d16681d0b3f3e9a41747476aa`
+    * ScripthHash: `fb2b60c9ea35be51abf741981e7c4954eedf50c3`
+    * PubKey: `03a24144ca271aa3cec6516e3ac858138ece0a4d071c3868209d16681d0b3f3e9a`
     * PrivKey: ``
-    * NEP-2 encrypted: `6PYMoERNCmTZkHGYFfdbg146GbrLUdm6CEQTeQpeDzz9Pk6xdwMkL7BFvx`
-    * WIF: `Kzmp85HYYTB5CFVrJw4bTWVXFFzJskumQrnPXoJAhLu3S1MjpR25`
+    * NEP-2 encrypted: `6PYPK5YQkHyZP9aDPLunxMcuECxFaWJCVyDfjPJn29pMNmBStiKY6D81xv`
+    * WIF: `L3gSLs2CSRYss1zoTmSB9hYAxqimn7Br5yDomH8FDb6NDsupeRVK`
   * JSON-RPC: `localhost:10332`
 * **Client2**
-  * Address: `NdnKc2egNfxD1FgJeVmh1itpWRo6AmLZvb`
-    * Script: `0c2103506f7c44e07cf2750a440aba5fe5619a8c686a28f2707a4342fd8d5e8c87753141747476aa`
-    * ScriptHash: `f6a9192686173445bd5860209f918bce1dfbffc3`
-    * PubKey: `03506f7c44e07cf2750a440aba5fe5619a8c686a28f2707a4342fd8d5e8c877531`
+  * Address: `NRxkBhm3yyWH8qZxPvVR27FiWcGwWxgGZN`
+    * Script: `0c2102b21a75d33eaa705410bc50b103a9abe27651d431d03e97bc9a36a459b38fd38e41747476aa`
+    * ScriptHash: `361d0a0d69b3f0c340dd01f28ca8052165265742`
+    * PubKey: `02b21a75d33eaa705410bc50b103a9abe27651d431d03e97bc9a36a459b38fd38e`
     * PrivKey: ``
-    * NEP-2 encrypted: `6PYVPGffan6MzQt6vmapUfLg8w6GAk8e2SSosUgpWshcvhTJTWmXWdtvbZ`
-    * WIF: `KzpH6emqMpPDtbqYNubvixmjkBvn4z93z4oTX1VDhvDHyd3eBDFB`
+    * NEP-2 encrypted: `6PYVvtyxedhiBjYX9kvBkRUiDvy2HSsku87h5UYMazs1JmwMdo2DTnpg2R`
+    * WIF: `L4oDbG4m9f7cnHyawQ4HWJJSrcVDZ8k3E4YxL7Ran89FL2t31hya`
   * JSON-RPC: `localhost:20332`
 
 * **Wallet passphrase**: `neo`
