@@ -49,7 +49,6 @@ After you change something in the config files and want to rebuild everything, w
 
 ```
 docker-compose build --no-cache
-
 ```
 
 ## :zap: Test a bit through JSON-RPC
@@ -133,9 +132,17 @@ The `docker-compose` file has 3 nodes, each with an account. The consensus node 
 
 * **Wallet passphrase**: `neo`
 
-* **Asset addresses/hashes**:
-  * NEO: `0x0a46e2e37c9987f570b4af253fb77e7eef0f72b6`
-  * GAS: `0xa6a6c15dcdc9b997dac448b6926522d22efeedfb`
+* **List of native contract's addresses/hashes**:
+  * ContractManagement: `0xfffdc93764dbaddd97c48f252a53ea4643faa3fd`
+  * StdLib:             `0xacce6fd80d44e1796aa0c2c625e9e4e0ce39efc0`
+  * CryptoLib:          `0x726cb6e0cd8628a1350a611384688911ab75f51b`
+  * LedgerContract:     `0xda65b600f7124ce6c79950c1772a36403104f2be`
+  * NeoToken:           `0xef4073a0f2b305a38ec4050e4d3d28bc40ea63f5`
+  * GasToken:           `0xd2a4cff31913016155e38e474a2c06d08be276cf`
+  * PolicyContract:     `0xcc5e4edd9f5f8dba8bb65734541df7a1c081c67b`
+  * RoleManagement:     `0x49cf4e5378ffcd4dec034fd98a174c5491e395e2`
+  * OracleContract:     `0xfe924b7cfe89ddd271abaf7210a80a7e11178758`
+  * NameService:        `0x7a8fcf0392cd625647907afa8e45cc66872b596b`
 
 * **Address Info**:
   * All the addresses have the `AddressVersion` set to `0x35` (which is the [default used in the neo-project](https://github.com/neo-project/neo/blob/402e9b19d80bb9093601f5ac57ff0cdc3c6cf6ab/src/neo/ProtocolSettings.cs#L50))
@@ -144,7 +151,6 @@ The `docker-compose` file has 3 nodes, each with an account. The consensus node 
 
 - [ ] Pre-fund wallets of `neo-client1` and `neo-client2` with plenty of NEO and GAS
 - [ ] Automatically deploy smart contracts specified in a given local directory
-- [ ] Option to start more consensus nodes, if desired
 
 If you would like to see anything else, give us a shout and [open an issue](https://github.com/AxLabs/neo3-privatenet-docker/issues).
 

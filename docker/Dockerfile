@@ -5,7 +5,7 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0 AS PluginBuild
 COPY ./ /neo-modules
 WORKDIR /neo-modules
 
-ARG REGEX_EXCLUDE_PLUGINS=".*(SystemLog|RpcNep5Tracker|StateService|StatesDumper)"
+ARG REGEX_EXCLUDE_PLUGINS=".*(SystemLog|RpcNep5Tracker)"
 
 #
 # Some magic here. Time for the kids to leave. Adults only.
