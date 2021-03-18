@@ -104,7 +104,7 @@ The `docker-compose` file has 3 nodes, each with an account. The consensus node 
     * ScriptHash: `0336edcdb5bfe515685fab7aab26937f6f0e0c62`
     * Script: `0c21036cfcc5d0550d0481b66f58e25067280f042b4933fc013dc4930ce2a4194c9d9441747476aa`
     * PubKey: `036cfcc5d0550d0481b66f58e25067280f042b4933fc013dc4930ce2a4194c9d94`
-    * PrivKey: ``
+    * PrivKey: `90674e684a775d25d943ca28758024195f60e17fb78cf994cb8895640e733892`
     * NEP-2 encrypted: `6PYRSp9YqwcNpUz4bgvFi74CNQBGRkx3snsy2og53a7NLrRwtYTXpBFfye`
     * WIF: `L24Qst64zASL2aLEKdJtRLnbnTbqpcRNWkWJ3yhDh2CLUtLdwYK2`
   * MultiSig Address (from the account above, 1/1): `NKvR5WeczCQMcVWQD9aaMqegfEoCBXGWpW`
@@ -116,7 +116,7 @@ The `docker-compose` file has 3 nodes, each with an account. The consensus node 
     * Script: `0c2103a24144ca271aa3cec6516e3ac858138ece0a4d071c3868209d16681d0b3f3e9a41747476aa`
     * ScripthHash: `fb2b60c9ea35be51abf741981e7c4954eedf50c3`
     * PubKey: `03a24144ca271aa3cec6516e3ac858138ece0a4d071c3868209d16681d0b3f3e9a`
-    * PrivKey: ``
+    * PrivKey: `c0c610ef842b7f8a28c52853ee07b59ecf8b54f9b77f39f1ef03dcde22ee82a3`
     * NEP-2 encrypted: `6PYPK5YQkHyZP9aDPLunxMcuECxFaWJCVyDfjPJn29pMNmBStiKY6D81xv`
     * WIF: `L3gSLs2CSRYss1zoTmSB9hYAxqimn7Br5yDomH8FDb6NDsupeRVK`
   * JSON-RPC: `localhost:10332`
@@ -125,7 +125,7 @@ The `docker-compose` file has 3 nodes, each with an account. The consensus node 
     * Script: `0c2102b21a75d33eaa705410bc50b103a9abe27651d431d03e97bc9a36a459b38fd38e41747476aa`
     * ScriptHash: `361d0a0d69b3f0c340dd01f28ca8052165265742`
     * PubKey: `02b21a75d33eaa705410bc50b103a9abe27651d431d03e97bc9a36a459b38fd38e`
-    * PrivKey: ``
+    * PrivKey: `e2195b9f0a655e24d1a77d5d92d824b80bb8c4de4192031b9b74102b27fc0710`
     * NEP-2 encrypted: `6PYVvtyxedhiBjYX9kvBkRUiDvy2HSsku87h5UYMazs1JmwMdo2DTnpg2R`
     * WIF: `L4oDbG4m9f7cnHyawQ4HWJJSrcVDZ8k3E4YxL7Ran89FL2t31hya`
   * JSON-RPC: `localhost:20332`
@@ -158,4 +158,3 @@ If you would like to see anything else, give us a shout and [open an issue](http
 
 * We have to thank [hal0x2328](https://github.com/hal0x2328) for publishing [hal0x2328/neo3-privatenet-tutorial](https://github.com/hal0x2328/neo3-privatenet-tutorial) and inspire us to make things even simpler. :smiley: :wink:
 * Thanks for [Tommo-L](https://github.com/Tommo-L) by providing the amazing [Tommo-L/NEO3-Development-Guide](https://github.com/Tommo-L/NEO3-Development-Guide) -- certainly, this development guide is complementary to the [AxLabs/neo3-privatenet-docker](https://github.com/AxLabs/neo3-privatenet-docker) repository.
-
