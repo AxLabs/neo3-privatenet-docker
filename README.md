@@ -100,34 +100,34 @@ curl http://127.0.0.1:10332 -d '{"jsonrpc":"2.0","method":"getnep17balances","pa
 The `docker-compose` file has 3 nodes, each with an account. The consensus node uses one public key for two accounts. One is a multisig account and the other a normal account. The multisig account is required as the validator account. Private keys are encrypted according to NEP-2.
 
 * **Consensus**
-  * Address: `NUrPrFLETzoe7N2FLi2dqTvLwc9L2Em84K`
-    * ScriptHash: `0336edcdb5bfe515685fab7aab26937f6f0e0c62`
-    * Script: `0c21036cfcc5d0550d0481b66f58e25067280f042b4933fc013dc4930ce2a4194c9d9441747476aa`
-    * PubKey: `036cfcc5d0550d0481b66f58e25067280f042b4933fc013dc4930ce2a4194c9d94`
-    * PrivKey: `90674e684a775d25d943ca28758024195f60e17fb78cf994cb8895640e733892`
-    * NEP-2 encrypted: `6PYRSp9YqwcNpUz4bgvFi74CNQBGRkx3snsy2og53a7NLrRwtYTXpBFfye`
-    * WIF: `L24Qst64zASL2aLEKdJtRLnbnTbqpcRNWkWJ3yhDh2CLUtLdwYK2`
-  * MultiSig Address (from the account above, 1/1): `NKvR5WeczCQMcVWQD9aaMqegfEoCBXGWpW`
-    * Script: `110c21036cfcc5d0550d0481b66f58e25067280f042b4933fc013dc4930ce2a4194c9d9411417bce6ca5`
-    * ScritpHash: `483fa7396b0c6a4886bb07364ba3f9ba249d1500`
+  * Address: `NM7Aky765FG8NhhwtxjXRx7jEL1cnw7PBP`
+    * ScriptHash: `69ecca587293047be4c59159bf8bc399985c160d`
+    * Script: `0c21033a4d051b04b7fc0230d2b1aaedfd5a84be279a5361a7358db665ad7857787f1b4156e7b327`
+    * PubKey: `033a4d051b04b7fc0230d2b1aaedfd5a84be279a5361a7358db665ad7857787f1b`
+    * PrivKey: ``
+    * NEP-2 encrypted: `6PYM7jHL4GmS8Aw2iEFpuaHTCUKjhT4mwVqdoozGU6sUE25BjV4ePXDdLz`
+    * WIF: `L1eV34wPoj9weqhGijdDLtVQzUpWGHszXXpdU9dPuh2nRFFzFa7E`
+  * MultiSig Address (from the account above, 1/1): `NXXazKH39yNFWWZF5MJ8tEN98VYHwzn7g3`
+    * Script: `110c21033a4d051b04b7fc0230d2b1aaedfd5a84be279a5361a7358db665ad7857787f1b11419ed0dc3a`
+    * ScritpHash: `05859de95ccbbd5668e0f055b208273634d4657f`
   * JSON-RPC: `localhost:40332`
 * **Client1**
-  * Address: `NdihqSLYTf1B1WYuzhM52MNqvCNPJKLZaz`
-    * Script: `0c2103a24144ca271aa3cec6516e3ac858138ece0a4d071c3868209d16681d0b3f3e9a41747476aa`
-    * ScripthHash: `fb2b60c9ea35be51abf741981e7c4954eedf50c3`
-    * PubKey: `03a24144ca271aa3cec6516e3ac858138ece0a4d071c3868209d16681d0b3f3e9a`
-    * PrivKey: `c0c610ef842b7f8a28c52853ee07b59ecf8b54f9b77f39f1ef03dcde22ee82a3`
-    * NEP-2 encrypted: `6PYPK5YQkHyZP9aDPLunxMcuECxFaWJCVyDfjPJn29pMNmBStiKY6D81xv`
-    * WIF: `L3gSLs2CSRYss1zoTmSB9hYAxqimn7Br5yDomH8FDb6NDsupeRVK`
+  * Address: `NV1Q1dTdvzPbThPbSFz7zudTmsmgnCwX6c`
+    * Script: `0c2102607a38b8010a8f401c25dd01df1b74af1827dd16b821fc07451f2ef7f02da60f4156e7b327`
+    * ScripthHash: `88c48eaef7e64b646440da567cd85c9060efbf63`
+    * PubKey: `02607a38b8010a8f401c25dd01df1b74af1827dd16b821fc07451f2ef7f02da60f`
+    * PrivKey: ``
+    * NEP-2 encrypted: `6PYWaAbWpf6oeH1VrqtdAGawYMsTfcN1GJyarhUFVEq1siNcRJwMpoo456`
+    * WIF: `L3cNMQUSrvUrHx1MzacwHiUeCWzqK2MLt5fPvJj9mz6L2rzYZpok`
   * JSON-RPC: `localhost:10332`
 * **Client2**
-  * Address: `NRxkBhm3yyWH8qZxPvVR27FiWcGwWxgGZN`
-    * Script: `0c2102b21a75d33eaa705410bc50b103a9abe27651d431d03e97bc9a36a459b38fd38e41747476aa`
-    * ScriptHash: `361d0a0d69b3f0c340dd01f28ca8052165265742`
-    * PubKey: `02b21a75d33eaa705410bc50b103a9abe27651d431d03e97bc9a36a459b38fd38e`
-    * PrivKey: `e2195b9f0a655e24d1a77d5d92d824b80bb8c4de4192031b9b74102b27fc0710`
-    * NEP-2 encrypted: `6PYVvtyxedhiBjYX9kvBkRUiDvy2HSsku87h5UYMazs1JmwMdo2DTnpg2R`
-    * WIF: `L4oDbG4m9f7cnHyawQ4HWJJSrcVDZ8k3E4YxL7Ran89FL2t31hya`
+  * Address: `NhJX9eCbkKtgDrh1S4xMTRaHUGbZ5Be7uU`
+    * Script: `0c21037279f3a507817251534181116cb38ef30468b25074827db34cbbc6adc88739324156e7b327`
+    * ScriptHash: `b435bf4b8e34b28a73029eb42d0d99a775799eea`
+    * PubKey: `037279f3a507817251534181116cb38ef30468b25074827db34cbbc6adc8873932`
+    * PrivKey: ``
+    * NEP-2 encrypted: `6PYNfKunYGT5sMMqmpkQLB3KRrgvdE2vTEhpXsjQBLFh9cTbRkWkTkz9Q1`
+    * WIF: `L1RgqMJEBjdXcuYCMYB6m7viQ9zjkNPjZPAKhhBoXxEsygNXENBb`
   * JSON-RPC: `localhost:20332`
 
 * **Wallet passphrase**: `neo`
