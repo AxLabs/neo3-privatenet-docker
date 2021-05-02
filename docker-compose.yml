@@ -4,21 +4,27 @@ services:
 
   build-neo-cli:
     build: ./neo-node
-    image: neo-project/neo-node/neo-cli:master-latest
+    image: neo-project/neo-node/neo-cli:${IMAGE_TAG}
 
-  neo-consensus:
+  build-neo-cli-with-plugins:
     build:
       context: ./neo-modules
       dockerfile: ../docker/Dockerfile
       target: NeoCliFinal
-    image: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:master-latest
+      args:
+        IMAGE_TAG: ${IMAGE_TAG}
+    image: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:${IMAGE_TAG}
+    depends_on:
+      - build-neo-cli
+
+  neo-consensus:
+    image: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:${IMAGE_TAG}
     hostname: neo-consensus
     container_name: neo-consensus
     depends_on:
-      - build-neo-cli
+      - build-neo-cli-with-plugins
     volumes:
       - ./config/config-consensus.privatenet3.json:/neo-cli/config.json:ro
-      - ./config/protocol-consensus.privatenet3.json:/neo-cli/protocol.json:ro
       - ./config/wallet-consensus.privatenet3.json:/neo-cli/wallet.json:rw
       - ./config/rpcserver.config-consensus.json:/neo-cli/Plugins/RpcServer/config.json:ro
       - ./config/dbft.config-consensus.json:/neo-cli/Plugins/DBFTPlugin/config.json:ro
@@ -26,38 +32,28 @@ services:
       - "40332:40332"
 
   neo-client1:
-    build:
-      context: ./neo-modules
-      dockerfile: ../docker/Dockerfile
-      target: NeoCliFinal
-    image: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:master-latest
+    image: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:${IMAGE_TAG}
     hostname: neo-client1
     container_name: neo-client1
     depends_on:
-      - build-neo-cli
+      - build-neo-cli-with-plugins
       - neo-consensus
     volumes:
       - ./config/config-client1.privatenet3.json:/neo-cli/config.json:ro
-      - ./config/protocol-client1.privatenet3.json:/neo-cli/protocol.json:ro
       - ./config/wallet-client1.privatenet3.json:/neo-cli/wallet.json:rw
       - ./config/rpcserver.config-client1.json:/neo-cli/Plugins/RpcServer/config.json:ro
     ports:
       - "10332:10332"
 
   neo-client2:
-    build:
-      context: ./neo-modules
-      dockerfile: ../docker/Dockerfile
-      target: NeoCliFinal
-    image: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:master-latest
+    image: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:${IMAGE_TAG}
     hostname: neo-client2
     container_name: neo-client2
     depends_on:
-      - build-neo-cli
+      - build-neo-cli-with-plugins
       - neo-consensus
     volumes:
       - ./config/config-client2.privatenet3.json:/neo-cli/config.json:ro
-      - ./config/protocol-client2.privatenet3.json:/neo-cli/protocol.json:ro
       - ./config/wallet-client2.privatenet3.json:/neo-cli/wallet.json:rw
       - ./config/rpcserver.config-client2.json:/neo-cli/Plugins/RpcServer/config.json:ro
     ports:
