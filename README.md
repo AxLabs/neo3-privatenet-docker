@@ -104,7 +104,7 @@ The `docker-compose` file has 3 nodes, each with an account. The consensus node 
     * ScriptHash: `69ecca587293047be4c59159bf8bc399985c160d`
     * Script: `0c21033a4d051b04b7fc0230d2b1aaedfd5a84be279a5361a7358db665ad7857787f1b4156e7b327`
     * PubKey: `033a4d051b04b7fc0230d2b1aaedfd5a84be279a5361a7358db665ad7857787f1b`
-    * PrivKey: ``
+    * PrivKey: `84180ac9d6eb6fba207ea4ef9d2200102d1ebeb4b9c07e2c6a738a42742e27a5`
     * NEP-2 encrypted: `6PYM7jHL4GmS8Aw2iEFpuaHTCUKjhT4mwVqdoozGU6sUE25BjV4ePXDdLz`
     * WIF: `L1eV34wPoj9weqhGijdDLtVQzUpWGHszXXpdU9dPuh2nRFFzFa7E`
   * MultiSig Address (from the account above, 1/1): `NXXazKH39yNFWWZF5MJ8tEN98VYHwzn7g3`
@@ -116,7 +116,7 @@ The `docker-compose` file has 3 nodes, each with an account. The consensus node 
     * Script: `0c2102607a38b8010a8f401c25dd01df1b74af1827dd16b821fc07451f2ef7f02da60f4156e7b327`
     * ScripthHash: `88c48eaef7e64b646440da567cd85c9060efbf63`
     * PubKey: `02607a38b8010a8f401c25dd01df1b74af1827dd16b821fc07451f2ef7f02da60f`
-    * PrivKey: ``
+    * PrivKey: `beae38739915555a75a9281a5928b10ebc265f9c881aa21e963610a6c606a3dc`
     * NEP-2 encrypted: `6PYWaAbWpf6oeH1VrqtdAGawYMsTfcN1GJyarhUFVEq1siNcRJwMpoo456`
     * WIF: `L3cNMQUSrvUrHx1MzacwHiUeCWzqK2MLt5fPvJj9mz6L2rzYZpok`
   * JSON-RPC: `localhost:10332`
@@ -125,7 +125,7 @@ The `docker-compose` file has 3 nodes, each with an account. The consensus node 
     * Script: `0c21037279f3a507817251534181116cb38ef30468b25074827db34cbbc6adc88739324156e7b327`
     * ScriptHash: `b435bf4b8e34b28a73029eb42d0d99a775799eea`
     * PubKey: `037279f3a507817251534181116cb38ef30468b25074827db34cbbc6adc8873932`
-    * PrivKey: ``
+    * PrivKey: `7d82c818dcc23f9312527b36c4959e5976f5df7a3dec7e1bbb24a45d64d131c1`
     * NEP-2 encrypted: `6PYNfKunYGT5sMMqmpkQLB3KRrgvdE2vTEhpXsjQBLFh9cTbRkWkTkz9Q1`
     * WIF: `L1RgqMJEBjdXcuYCMYB6m7viQ9zjkNPjZPAKhhBoXxEsygNXENBb`
   * JSON-RPC: `localhost:20332`
