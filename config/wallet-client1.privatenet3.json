@@ -1,6 +1,6 @@
 {
   "name": null,
-  "version": "3.0",
+  "version": "1.0",
   "scrypt": {
     "n": 16384,
     "r": 8,
@@ -8,13 +8,13 @@
   },
   "accounts": [
     {
-      "address": "NdihqSLYTf1B1WYuzhM52MNqvCNPJKLZaz",
+      "address": "NV1Q1dTdvzPbThPbSFz7zudTmsmgnCwX6c",
       "label": null,
-      "isdefault": false,
+      "isDefault": false,
       "lock": false,
-      "key": "6PYPK5YQkHyZP9aDPLunxMcuECxFaWJCVyDfjPJn29pMNmBStiKY6D81xv",
+      "key": "6PYWaAbWpf6oeH1VrqtdAGawYMsTfcN1GJyarhUFVEq1siNcRJwMpoo456",
       "contract": {
-        "script": "DCEDokFEyicao87GUW46yFgTjs4KTQccOGggnRZoHQs/PppBdHR2qg==",
+        "script": "DCECYHo4uAEKj0AcJd0B3xt0rxgn3Ra4IfwHRR8u9/Atpg9BVuezJw==",
         "parameters": [
           {
             "name": "signature",
