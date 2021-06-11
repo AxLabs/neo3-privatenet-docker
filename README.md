@@ -5,11 +5,11 @@
 <h1>neo3-privatenet-docker</h1>
 <p align="center" style="margin-top: 30pt;">
   :fire::zap::fire::zap::fire:
-  <b>Run Neo3 blockchain nodes for development in record time!</b>
+  <b>Run Neo N3 blockchain nodes for development in record time!</b>
   :fire::zap::fire::zap::fire:
 </p>
 
-<p>You're <b>3 commands away</b> to set up a Neo3 blockchain private network.</p>
+<p>You're <b>3 commands away</b> to set up a Neo N3 blockchain private network.</p>
 </div>
 
 ## :tada: Highlights
