@@ -142,7 +142,6 @@ The `docker-compose` file has 3 nodes, each with an account. The consensus node 
   * PolicyContract:     `0xcc5e4edd9f5f8dba8bb65734541df7a1c081c67b`
   * RoleManagement:     `0x49cf4e5378ffcd4dec034fd98a174c5491e395e2`
   * OracleContract:     `0xfe924b7cfe89ddd271abaf7210a80a7e11178758`
-  * NameService:        `0x7a8fcf0392cd625647907afa8e45cc66872b596b`
 
 * **Address Info**:
   * All the addresses have the `AddressVersion` set to `0x35` (which is the [default used in the neo-project](https://github.com/neo-project/neo/blob/402e9b19d80bb9093601f5ac57ff0cdc3c6cf6ab/src/neo/ProtocolSettings.cs#L50))
