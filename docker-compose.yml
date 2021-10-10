@@ -28,6 +28,9 @@ services:
       - ./config/wallet-consensus.privatenet3.json:/neo-cli/wallet.json:rw
       - ./config/rpcserver.config-consensus.json:/neo-cli/Plugins/RpcServer/config.json:ro
       - ./config/dbft.config-consensus.json:/neo-cli/Plugins/DBFTPlugin/config.json:ro
+      - ./config/applicationlogs.config-consensus.json:/neo-cli/Plugins/ApplicationLogs/config.json:ro
+      - ./config/oracle.config-consensus.json:/neo-cli/Plugins/OracleService/config.json:ro
+      - ./config/rpcnep17tracker.config-consensus.json:/neo-cli/Plugins/RpcNep17Tracker/config.json:ro
     ports:
       - "40332:40332"
 
@@ -42,6 +45,9 @@ services:
       - ./config/config-client1.privatenet3.json:/neo-cli/config.json:ro
       - ./config/wallet-client1.privatenet3.json:/neo-cli/wallet.json:rw
       - ./config/rpcserver.config-client1.json:/neo-cli/Plugins/RpcServer/config.json:ro
+      - ./config/applicationlogs.config-client1.json:/neo-cli/Plugins/ApplicationLogs/config.json:ro
+      - ./config/oracle.config-client1.json:/neo-cli/Plugins/OracleService/config.json:ro
+      - ./config/rpcnep17tracker.config-client1.json:/neo-cli/Plugins/RpcNep17Tracker/config.json:ro
     ports:
       - "10332:10332"
 
@@ -56,5 +62,8 @@ services:
       - ./config/config-client2.privatenet3.json:/neo-cli/config.json:ro
       - ./config/wallet-client2.privatenet3.json:/neo-cli/wallet.json:rw
       - ./config/rpcserver.config-client2.json:/neo-cli/Plugins/RpcServer/config.json:ro
+      - ./config/applicationlogs.config-client2.json:/neo-cli/Plugins/ApplicationLogs/config.json:ro
+      - ./config/oracle.config-client2.json:/neo-cli/Plugins/OracleService/config.json:ro
+      - ./config/rpcnep17tracker.config-client2.json:/neo-cli/Plugins/RpcNep17Tracker/config.json:ro
     ports:
       - "20332:20332"
