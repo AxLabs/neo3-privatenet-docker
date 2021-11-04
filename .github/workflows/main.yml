@@ -39,6 +39,9 @@ jobs:
           IMAGE_ID_PLUGINS: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins
           VERSION_LATEST: latest
         run: |
+          echo "IMAGE_ID_BASE=${IMAGE_ID_BASE}" >> $GITHUB_ENV
+          echo "IMAGE_ID_PLUGINS=${IMAGE_ID_PLUGINS}" >> $GITHUB_ENV
+          echo "VERSION_LATEST=${VERSION_LATEST}" >> $GITHUB_ENV
           echo "VERSION_SPECIFIC=${{ github.event.inputs.version }}" >> $GITHUB_ENV
 
       - name: Build base container image
