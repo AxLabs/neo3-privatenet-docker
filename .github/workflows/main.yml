@@ -52,7 +52,7 @@ jobs:
           echo VERSION_LATEST=$VERSION_LATEST
           docker buildx build \
             --tag $IMAGE_ID_BASE:$VERSION_LATEST \
-            --platform linux/amd64,linux/arm/v7,linux/arm64 \
+            --platform linux/amd64,linux/arm64 \
             ./neo-node
 
       - name: Build and push neo-cli-with-plugins ('latest' tag)
@@ -62,7 +62,7 @@ jobs:
           docker buildx build \
             --push \
             --tag $IMAGE_ID_PLUGINS:$VERSION_LATEST \
-            --platform linux/amd64,linux/arm/v7,linux/arm64 \
+            --platform linux/amd64,linux/arm64 \
             -f ../docker/Dockerfile \
             --target NeoCliFinal \
             --build-arg IMAGE_TAG=$VERSION_LATEST \
@@ -76,7 +76,7 @@ jobs:
           docker buildx build \
             --push \
             --tag $IMAGE_ID_PLUGINS:$VERSION_SPECIFIC \
-            --platform linux/amd64,linux/arm/v7,linux/arm64 \
+            --platform linux/amd64,linux/arm64 \
             -f ../docker/Dockerfile \
             --target NeoCliFinal \
             --build-arg IMAGE_TAG=$VERSION_LATEST \
