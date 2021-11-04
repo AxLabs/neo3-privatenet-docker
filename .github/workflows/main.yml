@@ -50,11 +50,12 @@ jobs:
           echo "VERSION_LATEST=${VERSION_LATEST}" >> $GITHUB_ENV
           echo "VERSION_SPECIFIC=${{ github.event.inputs.version }}" >> $GITHUB_ENV
 
-      - name: Build base image
+      - name: Build and push base image
         run: |
           echo IMAGE_ID_BASE=$IMAGE_ID_BASE
           echo VERSION_LATEST=$VERSION_LATEST
           docker buildx build \
+            --push \
             --tag $IMAGE_ID_BASE:$VERSION_LATEST \
             --platform linux/amd64,linux/arm64 \
             ./neo-node
