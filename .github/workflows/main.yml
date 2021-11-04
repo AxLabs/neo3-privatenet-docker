@@ -1,0 +1,78 @@
+name: Build and publish container
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Publish to ghcr?'
+        required: false
+        default: 'false'
+      version:
+        description: 'Version in addition to latest?'
+        required: false
+        default: ''
+
+jobs:
+  ghcr_push:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.publish == 'true'
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Log-in to ghcr.io
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Set variables
+        env:
+          IMAGE_ID_BASE: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli
+          IMAGE_ID_PLUGINS: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins
+          VERSION_LATEST: latest
+        run: |
+          echo "VERSION_SPECIFIC=${{ github.event.inputs.version }}" >> $GITHUB_ENV
+
+      - name: Build base container image
+        run: |
+          echo IMAGE_ID_BASE=$IMAGE_ID_BASE
+          echo VERSION_LATEST=$VERSION_LATEST
+          docker buildx build \
+            --tag $IMAGE_ID_BASE:$VERSION_LATEST \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 \
+            ./neo-node
+
+      - name: Build and push neo-cli-with-plugins ('latest' tag)
+        run: |
+          echo IMAGE_ID_PLUGINS=$IMAGE_ID_PLUGINS
+          echo VERSION_LATEST=$VERSION_LATEST
+          docker buildx build \
+            --push \
+            --tag $IMAGE_ID_PLUGINS:$VERSION_LATEST \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 \
+            -f ../docker/Dockerfile \
+            --target NeoCliFinal \
+            --build-arg IMAGE_TAG=$VERSION_LATEST \
+            ./neo-modules
+
+      - name: Build and push neo-cli-with-plugins (version tag)
+        if: github.event.inputs.version != ''
+        run: |
+          echo IMAGE_ID_PLUGINS=$IMAGE_ID_PLUGINS
+          echo VERSION_SPECIFIC=$VERSION_SPECIFIC
+          docker buildx build \
+            --push \
+            --tag $IMAGE_ID_PLUGINS:$VERSION_SPECIFIC \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 \
+            -f ../docker/Dockerfile \
+            --target NeoCliFinal \
+            --build-arg IMAGE_TAG=$VERSION_LATEST \
+            ./neo-modules   

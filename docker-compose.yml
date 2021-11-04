@@ -1,10 +1,11 @@
-version: '3.6'
+version: '3.7'
 
 services:  
 
   build-neo-cli:
-    build: ./neo-node
-    image: neo-project/neo-node/neo-cli:${IMAGE_TAG}
+    build:
+      context: ./neo-node
+    image: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli:${IMAGE_TAG}
 
   build-neo-cli-with-plugins:
     build:
