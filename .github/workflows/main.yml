@@ -63,7 +63,7 @@ jobs:
             --push \
             --tag $IMAGE_ID_PLUGINS:$VERSION_LATEST \
             --platform linux/amd64,linux/arm64 \
-            -f ../docker/Dockerfile \
+            -f ./docker/Dockerfile \
             --target NeoCliFinal \
             --build-arg IMAGE_TAG=$VERSION_LATEST \
             ./neo-modules
@@ -77,7 +77,7 @@ jobs:
             --push \
             --tag $IMAGE_ID_PLUGINS:$VERSION_SPECIFIC \
             --platform linux/amd64,linux/arm64 \
-            -f ../docker/Dockerfile \
+            -f ./docker/Dockerfile \
             --target NeoCliFinal \
             --build-arg IMAGE_TAG=$VERSION_LATEST \
             ./neo-modules   
