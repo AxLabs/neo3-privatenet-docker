@@ -1,7 +1,5 @@
 ARG IMAGE_TAG=master
 
-LABEL org.opencontainers.image.source https://github.com/axlabs/neo3-privatenet-docker
-
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS PluginBuild
 
 COPY ./ /neo-modules
@@ -32,6 +30,8 @@ RUN mkdir -p /plugins && \
 	| xargs -I {} sh -c 'echo {} && dotnet publish ./src/{} -c Release -o /plugins'
 
 FROM ghcr.io/axlabs/neo3-privatenet-docker/neo-cli:${IMAGE_TAG} AS NeoCliFinal
+
+LABEL org.opencontainers.image.source https://github.com/axlabs/neo3-privatenet-docker
 
 # Install some utils and clean things up
 RUN apt-get -y update && \
