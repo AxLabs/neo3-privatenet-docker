@@ -33,7 +33,7 @@ docker buildx build \
 	--push \
 	--platform linux/arm64,linux/amd64 \
 	-t ghcr.io/axlabs/neo3-privatenet-docker/neo-cli:${IMAGE_TAG} \
-	-t ghcr.io/axlabs/neo3-privatenet-docker/neo-cli:latest \
+	# -t ghcr.io/axlabs/neo3-privatenet-docker/neo-cli:latest \
 	-f ./neo-node/Dockerfile \
 	./neo-node
 
@@ -46,7 +46,7 @@ docker buildx build \
 	--push \
 	--platform linux/arm64,linux/amd64 \
 	-t ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:${IMAGE_TAG} \
-	-t ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:latest \
+	# -t ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:latest \
 	-f ./docker/Dockerfile \
 	--build-arg IMAGE_TAG=${IMAGE_TAG} \
 	--target NeoCliFinal \
