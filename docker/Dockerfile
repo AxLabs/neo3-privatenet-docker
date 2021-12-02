@@ -1,6 +1,6 @@
 ARG IMAGE_TAG=master
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS PluginBuild
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS PluginBuild
 
 COPY ./ /neo-modules
 WORKDIR /neo-modules
