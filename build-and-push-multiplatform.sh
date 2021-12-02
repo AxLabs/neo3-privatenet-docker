@@ -16,6 +16,11 @@
 # If everything goes fine you can see the result with:
 # $ docker buildx ls
 #
+# Then you can set your local docker to use the builder 'multi-host':
+# $ docker buildx use multi-host
+#
+# After this, you can simply run your `docker buildx build` commands. :-)
+#
 # IMPORTANT:
 # - If your remote machine (node2) is a MacOS, you might fall into this problem:
 #   https://github.com/docker/for-mac/issues/4382
@@ -33,7 +38,6 @@ docker buildx build \
 	--push \
 	--platform linux/arm64,linux/amd64 \
 	-t ghcr.io/axlabs/neo3-privatenet-docker/neo-cli:${IMAGE_TAG} \
-	# -t ghcr.io/axlabs/neo3-privatenet-docker/neo-cli:latest \
 	-f ./neo-node/Dockerfile \
 	./neo-node
 
@@ -46,7 +50,6 @@ docker buildx build \
 	--push \
 	--platform linux/arm64,linux/amd64 \
 	-t ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:${IMAGE_TAG} \
-	# -t ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:latest \
 	-f ./docker/Dockerfile \
 	--build-arg IMAGE_TAG=${IMAGE_TAG} \
 	--target NeoCliFinal \
