@@ -1,18 +1,20 @@
 name: Build and Publish container
 
 on:
-  push:
-    branches: [master]
   workflow_dispatch:
     inputs:
       publish:
         description: 'Publish to ghcr?'
         required: false
         default: 'false'
-      version:
-        description: 'Version in addition to latest?'
-        required: false
-        default: ''
+      specific-version:
+        description: 'Publish tag with specific version? (from .env)'
+        required: true
+        default: 'true'
+      latest-version:
+        description: 'Publish tag with "latest"?'
+        required: true
+        default: 'true'
 
 jobs:
   ghcr_push:
@@ -61,6 +63,7 @@ jobs:
             ./neo-node
 
       - name: Build and push neo-cli-with-plugins ('latest' tag)
+        if: github.event.inputs.latest-version == 'true'
         run: |
           echo IMAGE_ID_PLUGINS=$IMAGE_ID_PLUGINS
           echo VERSION_LATEST=$VERSION_LATEST
@@ -73,8 +76,8 @@ jobs:
             --build-arg IMAGE_TAG=$VERSION_LATEST \
             ./neo-modules
 
-      - name: Build and push neo-cli-with-plugins (version tag)
-        if: github.event.inputs.version != ''
+      - name: Build and push neo-cli-with-plugins (specific version tag)
+        if: github.event.inputs.specific-version == 'true'
         run: |
           echo IMAGE_ID_PLUGINS=$IMAGE_ID_PLUGINS
           echo VERSION_SPECIFIC=$VERSION_SPECIFIC
