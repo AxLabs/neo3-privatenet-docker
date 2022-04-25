@@ -1,18 +1,20 @@
 name: Build and Publish container
 
 on:
-  push:
-    branches: [master]
   workflow_dispatch:
     inputs:
       publish:
         description: 'Publish to ghcr?'
         required: false
         default: 'false'
-      version:
-        description: 'Version in addition to latest?'
-        required: false
-        default: ''
+      specific-version:
+        description: 'Publish tag with specific version? (from .env)'
+        required: true
+        default: 'true'
+      latest-version:
+        description: 'Publish tag "latest"?'
+        required: true
+        default: 'false'
 
 jobs:
   ghcr_push:
@@ -45,12 +47,14 @@ jobs:
           IMAGE_ID_PLUGINS: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins
           VERSION_LATEST: latest
         run: |
+          set -o allexport; source .env; set +o allexport
           echo "IMAGE_ID_BASE=${IMAGE_ID_BASE}" >> $GITHUB_ENV
           echo "IMAGE_ID_PLUGINS=${IMAGE_ID_PLUGINS}" >> $GITHUB_ENV
           echo "VERSION_LATEST=${VERSION_LATEST}" >> $GITHUB_ENV
-          echo "VERSION_SPECIFIC=${{ github.event.inputs.version }}" >> $GITHUB_ENV
+          echo "VERSION_SPECIFIC=${IMAGE_TAG}" >> $GITHUB_ENV
 
-      - name: Build and push base image
+      - name: Build and push base image (neo-node) ('latest' tag)
+        if: github.event.inputs.latest-version == 'true'
         run: |
           echo IMAGE_ID_BASE=$IMAGE_ID_BASE
           echo VERSION_LATEST=$VERSION_LATEST
@@ -60,7 +64,19 @@ jobs:
             --platform linux/amd64,linux/arm64 \
             ./neo-node
 
+      - name: Build and push base image (neo-node) (specific version tag)
+        if: github.event.inputs.specific-version == 'true'
+        run: |
+          echo IMAGE_ID_BASE=$IMAGE_ID_BASE
+          echo VERSION_SPECIFIC=$VERSION_SPECIFIC
+          docker buildx build \
+            --push \
+            --tag $IMAGE_ID_BASE:$VERSION_SPECIFIC \
+            --platform linux/amd64,linux/arm64 \
+            ./neo-node
+
       - name: Build and push neo-cli-with-plugins ('latest' tag)
+        if: github.event.inputs.latest-version == 'true'
         run: |
           echo IMAGE_ID_PLUGINS=$IMAGE_ID_PLUGINS
           echo VERSION_LATEST=$VERSION_LATEST
@@ -73,8 +89,8 @@ jobs:
             --build-arg IMAGE_TAG=$VERSION_LATEST \
             ./neo-modules
 
-      - name: Build and push neo-cli-with-plugins (version tag)
-        if: github.event.inputs.version != ''
+      - name: Build and push neo-cli-with-plugins (specific version tag)
+        if: github.event.inputs.specific-version == 'true'
         run: |
           echo IMAGE_ID_PLUGINS=$IMAGE_ID_PLUGINS
           echo VERSION_SPECIFIC=$VERSION_SPECIFIC
