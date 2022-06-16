@@ -11,10 +11,10 @@ ARG REGEX_EXCLUDE_PLUGINS=".*(SystemLog|RpcNep5Tracker)"
 # Some magic here. Time for the kids to leave. Adults only.
 #
 # The following disgusting shell command is due to the lack of tooling 
-# to exclude tests and projects in dotnet. *facepalm*
+# to exclude tests and specific sub-projects in dotnet. *facepalm*
 #
 # The good side: main artifacts and tests are not mixed up in the 
-# same plugins director, avoiding potential conflicts of .dll versions 
+# same plugins directory, avoiding potential conflicts of .dll versions 
 # and other nasty problems. *smile*
 #
 RUN mkdir -p /plugins && \
@@ -27,7 +27,7 @@ RUN mkdir -p /plugins && \
 		-and -not -regex "${REGEX_EXCLUDE_PLUGINS}" -print0 \
 	| xargs -0 -L1 sh -c 'basename $0' \
 	| sed 's/ //g' \
-	| xargs -I {} sh -c 'echo {} && dotnet publish ./src/{} -c Release -o /plugins'
+	| xargs -I {} sh -c 'echo {} && dotnet publish ./src/{} -c Release /p:ErrorOnDuplicatePublishOutputFiles=false -o /plugins/{}-tmp && mkdir -p /plugins/{} && cp /plugins/{}-tmp/{}.dll /plugins/{}/{}.dll && if [ -e /plugins/{}-tmp/config.json ]; then cp /plugins/{}-tmp/config.json /plugins/{}/config.json; fi && rm -rf /plugins/{}-tmp'
 
 FROM ghcr.io/axlabs/neo3-privatenet-docker/neo-cli:${IMAGE_TAG} AS NeoCliFinal
 
