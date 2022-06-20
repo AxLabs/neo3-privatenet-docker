@@ -27,7 +27,7 @@ RUN mkdir -p /plugins && \
 		-and -not -regex "${REGEX_EXCLUDE_PLUGINS}" -print0 \
 	| xargs -0 -L1 sh -c 'basename $0' \
 	| sed 's/ //g' \
-	| xargs -I {} sh -c 'echo {} && dotnet publish ./src/{} -c Release /p:ErrorOnDuplicatePublishOutputFiles=false -o /plugins/{}-tmp && mkdir -p /plugins/{} && cp /plugins/{}-tmp/{}.dll /plugins/{}/{}.dll && if [ -e /plugins/{}-tmp/config.json ]; then cp /plugins/{}-tmp/config.json /plugins/{}/config.json; fi && rm -rf /plugins/{}-tmp'
+	| xargs -I {} sh -c 'echo {} && dotnet publish ./src/{} -c Release /p:ErrorOnDuplicatePublishOutputFiles=false -o /plugins && mkdir -p /plugins/{} && cp /plugins/{}.* /plugins/{}/ && if [ -e ./src/{}/config.json ]; then cp ./src/{}/config.json /plugins/{}/config.json; fi'
 
 FROM ghcr.io/axlabs/neo3-privatenet-docker/neo-cli:${IMAGE_TAG} AS NeoCliFinal
 
