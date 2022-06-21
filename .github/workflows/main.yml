@@ -59,6 +59,7 @@ jobs:
           echo IMAGE_ID_BASE=$IMAGE_ID_BASE
           echo VERSION_LATEST=$VERSION_LATEST
           docker buildx build \
+            --no-cache \
             --push \
             --tag $IMAGE_ID_BASE:$VERSION_LATEST \
             --platform linux/amd64,linux/arm64 \
@@ -70,6 +71,7 @@ jobs:
           echo IMAGE_ID_BASE=$IMAGE_ID_BASE
           echo VERSION_SPECIFIC=$VERSION_SPECIFIC
           docker buildx build \
+            --no-cache \
             --push \
             --tag $IMAGE_ID_BASE:$VERSION_SPECIFIC \
             --platform linux/amd64,linux/arm64 \
@@ -81,6 +83,7 @@ jobs:
           echo IMAGE_ID_PLUGINS=$IMAGE_ID_PLUGINS
           echo VERSION_LATEST=$VERSION_LATEST
           docker buildx build \
+            --no-cache \
             --push \
             --tag $IMAGE_ID_PLUGINS:$VERSION_LATEST \
             --platform linux/amd64,linux/arm64 \
@@ -95,6 +98,7 @@ jobs:
           echo IMAGE_ID_PLUGINS=$IMAGE_ID_PLUGINS
           echo VERSION_SPECIFIC=$VERSION_SPECIFIC
           docker buildx build \
+            --no-cache \
             --push \
             --tag $IMAGE_ID_PLUGINS:$VERSION_SPECIFIC \
             --platform linux/amd64,linux/arm64 \
