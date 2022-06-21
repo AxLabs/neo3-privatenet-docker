@@ -104,5 +104,5 @@ jobs:
             --platform linux/amd64,linux/arm64 \
             -f ./docker/Dockerfile \
             --target NeoCliFinal \
-            --build-arg IMAGE_TAG=$VERSION_LATEST \
+            --build-arg IMAGE_TAG=$VERSION_SPECIFIC \
             ./neo-modules   
