@@ -1,11 +1,15 @@
 ARG IMAGE_TAG=master
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS PluginBuild
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS PluginBuild
 
 COPY ./ /neo-modules
 WORKDIR /neo-modules
 
-ARG REGEX_EXCLUDE_PLUGINS=".*(SystemLog|RpcNep5Tracker)"
+# If any plugin should be excluded from the build, just set 
+# to a regex including the names of dirs.
+# Example:
+#   REGEX_EXCLUDE_PLUGINS=".*(SystemLog|RpcNep5Tracker)"
+ARG REGEX_EXCLUDE_PLUGINS=""
 
 #
 # Some magic here. Time for the kids to leave. Adults only.
