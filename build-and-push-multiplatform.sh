@@ -34,7 +34,7 @@ echo "# Build+Push ghcr.io/axlabs/neo3-privatenet-docker/neo-cli:${IMAGE_TAG}"
 echo "##############################"
 
 docker buildx build \
-	--no-cache \
+	# --no-cache \
 	--push \
 	--platform linux/arm64,linux/amd64 \
 	-t ghcr.io/axlabs/neo3-privatenet-docker/neo-cli:${IMAGE_TAG} \
@@ -46,7 +46,7 @@ echo "# Build+Push ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:${
 echo "##############################"
 
 docker buildx build \
-	--no-cache \
+	# --no-cache \
 	--push \
 	--platform linux/arm64,linux/amd64 \
 	-t ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:${IMAGE_TAG} \
