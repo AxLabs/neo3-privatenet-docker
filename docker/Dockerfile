@@ -9,7 +9,7 @@ WORKDIR /neo-modules
 # to a regex including the names of dirs.
 # Example:
 #   REGEX_EXCLUDE_PLUGINS=".*(SystemLog|RpcNep5Tracker)"
-ARG REGEX_EXCLUDE_PLUGINS=""
+ARG REGEX_EXCLUDE_PLUGINS=".*(SystemLog|RpcNep5Tracker|StorageDumper)"
 
 #
 # Some magic here. Time for the kids to leave. Adults only.
