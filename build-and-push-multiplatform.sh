@@ -29,14 +29,77 @@
 
 set -o allexport; source .env; set +o allexport;
 
+DOCKER_CONTEXT=default
+DOCKER_BUILDX_CONTEXT=default
+
+# Ensuring the default docker context is used
+docker context use ${DOCKER_CONTEXT} || {
+    echo "Failed to set the Docker context to ${DOCKER_CONTEXT}."
+    exit 1
+}
+
+# Check for the existence of Docker Buildx plugin and set to default context if exists
+if docker buildx version &>/dev/null; then
+    docker buildx use ${DOCKER_BUILDX_CONTEXT} || {
+        echo "Failed to set Docker Buildx to use the ${DOCKER_BUILDX_CONTEXT} context."
+        exit 1
+    }
+fi
+
+# Force no-cache:
+# Remove all images and respective tags if 'no-cache' param is provided
+if [ "$1" == "no-cache" ]; then
+    declare -a IMAGES_TO_REMOVE=(
+        "ghcr.io/axlabs/neo3-privatenet-docker/neo-cli:${IMAGE_TAG}"
+        "ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:${IMAGE_TAG}"
+    )
+
+    for IMAGE in "${IMAGES_TO_REMOVE[@]}"; do
+        docker rmi -f "$IMAGE" 2>/dev/null || true
+    done
+fi
+
+declare -a PLATFORMS=(
+    "linux/amd64"
+    "linux/arm64"
+)
+
+# Get the list of supported platforms using docker buildx inspect
+SUPPORTED_PLATFORMS=$(docker buildx inspect default --bootstrap | grep 'linux/' | tr -d " " | tr ',' '\n')
+
+# Flag to track if all platforms are supported
+ALL_PLATFORMS_SUPPORTED=true
+
+# Check each platform in PLATFORMS against the supported platforms
+for PLATFORM in "${PLATFORMS[@]}"; do
+    if echo "$SUPPORTED_PLATFORMS" | grep -q "$PLATFORM"; then
+        echo "Platform $PLATFORM is supported"
+    else
+        echo "Platform $PLATFORM is NOT supported"
+        ALL_PLATFORMS_SUPPORTED=false
+    fi
+done
+
+# If not all platforms are supported, exit with status 1
+if [ "$ALL_PLATFORMS_SUPPORTED" = false ]; then
+    echo "Error: Not all platforms are supported"
+    exit 1
+fi
+
+# Create a comma-separated string of all platforms
+IFS=',' 
+PLATFORMS_STR="${PLATFORMS[*]}"
+IFS=' '
+echo "Platforms: $PLATFORMS_STR"
+
 echo "##############################"
 echo "# Build+Push ghcr.io/axlabs/neo3-privatenet-docker/neo-cli:${IMAGE_TAG}"
 echo "##############################"
 
 docker buildx build \
-	# --no-cache \
+	--no-cache \
 	--push \
-	--platform linux/arm64,linux/amd64 \
+	--platform ${PLATFORMS_STR} \
 	-t ghcr.io/axlabs/neo3-privatenet-docker/neo-cli:${IMAGE_TAG} \
 	-f ./neo-node/Dockerfile \
 	./neo-node
@@ -46,9 +109,9 @@ echo "# Build+Push ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:${
 echo "##############################"
 
 docker buildx build \
-	# --no-cache \
+	--no-cache \
 	--push \
-	--platform linux/arm64,linux/amd64 \
+	--platform ${PLATFORMS_STR} \
 	-t ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:${IMAGE_TAG} \
 	-f ./docker/Dockerfile \
 	--build-arg IMAGE_TAG=${IMAGE_TAG} \
