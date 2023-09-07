@@ -1,6 +1,6 @@
 version: '3.7'
 
-services:  
+services:
 
   build-neo-cli:
     build:
@@ -33,6 +33,7 @@ services:
       - ./config/oracle.config-consensus.json:/neo-cli/Plugins/OracleService/config.json:ro
       - ./config/tokentracker.config-consensus.json:/neo-cli/Plugins/TokensTracker/config.json:ro
       - ./config/stateservice.config-consensus.json:/neo-cli/Plugins/StateService/config.json:ro
+      - ./config/storagedumper.config-consensus.json:/neo-cli/Plugins/StorageDumper/config.json:ro
     ports:
       - "40332:40332"
 
@@ -51,6 +52,7 @@ services:
       - ./config/oracle.config-client1.json:/neo-cli/Plugins/OracleService/config.json:ro
       - ./config/tokentracker.config-client1.json:/neo-cli/Plugins/TokensTracker/config.json:ro
       - ./config/stateservice.config-client1.json:/neo-cli/Plugins/StateService/config.json:ro
+      - ./config/storagedumper.config-client1.json:/neo-cli/Plugins/StorageDumper/config.json:ro
     ports:
       - "10332:10332"
 
@@ -69,5 +71,6 @@ services:
       - ./config/oracle.config-client2.json:/neo-cli/Plugins/OracleService/config.json:ro
       - ./config/tokentracker.config-client2.json:/neo-cli/Plugins/TokensTracker/config.json:ro
       - ./config/stateservice.config-client2.json:/neo-cli/Plugins/StateService/config.json:ro
+      - ./config/storagedumper.config-client2.json:/neo-cli/Plugins/StorageDumper/config.json:ro
     ports:
       - "20332:20332"
