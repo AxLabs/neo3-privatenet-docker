@@ -1,6 +1,6 @@
 ARG IMAGE_TAG=master
 
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS PluginBuild
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:7.0 AS PluginBuild
 
 COPY ./ /neo-modules
 WORKDIR /neo-modules
@@ -33,7 +33,7 @@ RUN mkdir -p /plugins && \
 	| sed 's/ //g' \
 	| xargs -I {} sh -c 'echo {} && dotnet publish ./src/{} -c Release /p:ErrorOnDuplicatePublishOutputFiles=false -o /plugins && mkdir -p /plugins/{} && cp /plugins/{}.* /plugins/{}/ && if [ -e ./src/{}/config.json ]; then cp ./src/{}/config.json /plugins/{}/config.json; fi'
 
-FROM ghcr.io/axlabs/neo3-privatenet-docker/neo-cli:${IMAGE_TAG} AS NeoCliFinal
+FROM --platform=$BUILDPLATFORM ghcr.io/axlabs/neo3-privatenet-docker/neo-cli:${IMAGE_TAG} AS NeoCliFinal
 
 LABEL org.opencontainers.image.source https://github.com/axlabs/neo3-privatenet-docker
 
