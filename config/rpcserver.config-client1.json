@@ -13,6 +13,7 @@
         "MaxGasInvoke": 100000,
         "MaxFee": 0.1,
         "MaxConcurrentConnections": 40,
+        "MaxRequestBodySize": 5242880,
         "MaxIteratorResultItems": 100,
         "MaxStackSize": 65535,
         "DisabledMethods": [ ],
