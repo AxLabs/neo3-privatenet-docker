@@ -22,7 +22,7 @@ env:
   VERSION_LATEST: latest
 
 jobs:
-  build:
+  build-neo-cli:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -66,6 +66,58 @@ jobs:
           context: ./neo-node
           outputs: type=image,name=${{ env.IMAGE_ID_BASE }},push-by-digest=true,name-canonical=true,push=true
 
+      - name: Export digest - base image
+        run: |
+          mkdir -p /tmp/digests-base-image
+          digest="${{ steps.build-base-image.outputs.digest }}"
+          touch "/tmp/digests-base-image/${digest#sha256:}"
+          
+      - name: Upload digest - base image
+        uses: actions/upload-artifact@v4
+        with:
+          name: digests-base-image-${{ env.PLATFORM_PAIR }}
+          path: /tmp/digests-base-image/*
+          if-no-files-found: error
+          retention-days: 1
+
+  build-neo-cli-with-plugins:
+    needs:
+      - merge-neo-cli
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - linux/amd64
+          - linux/arm64
+    steps:
+      - name: Prepare
+        run: |
+          platform=${{ matrix.platform }}
+          echo "PLATFORM_PAIR=${platform//\//-}" >> $GITHUB_ENV
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Load .env
+        id: loadenv
+        uses: ./.github/actions/load-env
+
       - name: Build and push neo-cli-with-plugins
         id: build-plugins-image
         uses: docker/build-push-action@v5
@@ -77,25 +129,11 @@ jobs:
           context: ./neo-modules
           outputs: type=image,name=${{ env.IMAGE_ID_PLUGINS }},push-by-digest=true,name-canonical=true,push=true
 
-      - name: Export digest - base image
-        run: |
-          mkdir -p /tmp/digests-base-image
-          digest="${{ steps.build-base-image.outputs.digest }}"
-          touch "/tmp/digests-base-image/${digest#sha256:}"
-
       - name: Export digest - neo-cli-with-plugins
         run: |
           mkdir -p /tmp/digests-plugins-image
           digest="${{ steps.build-plugins-image.outputs.digest }}"
           touch "/tmp/digests-plugins-image/${digest#sha256:}"
-          
-      - name: Upload digest - base image
-        uses: actions/upload-artifact@v4
-        with:
-          name: digests-base-image-${{ env.PLATFORM_PAIR }}
-          path: /tmp/digests-base-image/*
-          if-no-files-found: error
-          retention-days: 1
 
       - name: Upload digest - neo-cli-with-plugins
         uses: actions/upload-artifact@v4
@@ -104,11 +142,11 @@ jobs:
           path: /tmp/digests-plugins-image/*
           if-no-files-found: error
           retention-days: 1
-
-  merge:
+          
+  merge-neo-cli:
     runs-on: ubuntu-latest
     needs:
-      - build
+      - build-neo-cli
     steps:
       - name: Load .env
         id: loadenv
@@ -153,6 +191,42 @@ jobs:
       - name: Inspect image - base image
         run: |
           docker buildx imagetools inspect ${{ env.IMAGE_ID_BASE }}:${{ steps.loadenv.outputs.image-tag }}
+
+      - name: Inspect image - neo-cli-with-plugins
+        run: |
+          docker buildx imagetools inspect ${{ env.IMAGE_ID_PLUGINS }}:${{ steps.loadenv.outputs.image-tag }}
+
+  merge-neo-cli-with-plugins:
+    runs-on: ubuntu-latest
+    needs:
+      - build-neo-cli-with-plugins
+    steps:
+      - name: Load .env
+        id: loadenv
+        uses: ./.github/actions/load-env
+
+      - name: Download digests - neo-cli-with-plugins
+        uses: actions/download-artifact@v4
+        with:
+          path: /tmp/digests-plugins-image
+          pattern: digests-plugins-image-*
+          merge-multiple: true
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create manifest list and push - neo-cli-with-plugins
+        working-directory: /tmp/digests-plugins-image
+        run: |
+          docker buildx imagetools create -t ${{ env.IMAGE_ID_PLUGINS }}:${{ steps.loadenv.outputs.image-tag }} \
+            $(printf '${{ env.IMAGE_ID_PLUGINS }}@sha256:%s ' *)
 
       - name: Inspect image - neo-cli-with-plugins
         run: |
