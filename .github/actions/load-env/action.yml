@@ -1,14 +1,17 @@
 name: 'Load .env'
 description: 'Loads variables from .env file'
 
+outputs:
+  image-id-base:
+    description: 'Base image id'
+    value: ${{ steps.loadenv.outputs.IMAGE_ID_BASE }}
+
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
-    - id: load
+    - name: Load .env
+      id: loadenv
       run: |
         set -o allexport; source .env; set +o allexport
-        echo "::set-output name=IMAGE_ID_BASE::$IMAGE_ID_BASE"
+        echo "IMAGE_ID_BASE=$IMAGE_ID_BASE" >> $GITHUB_OUTPUT
       shell: bash
-
-outputs:
-  IMAGE_ID_BASE: ${{ steps.load.outputs.IMAGE_ID_BASE }}
