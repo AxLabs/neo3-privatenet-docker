@@ -1,12 +1,14 @@
 name: 'Load .env'
 description: 'Loads variables from .env file'
+
 runs:
   using: 'composite'
   steps:
     - id: load
       run: |
         set -o allexport; source .env; set +o allexport
-        echo "IMAGE_ID_BASE=${IMAGE_ID_BASE}"
+        echo "::set-output name=IMAGE_ID_BASE::$IMAGE_ID_BASE"
       shell: bash
+
 outputs:
-  IMAGE_ID_BASE: ${{ env.IMAGE_ID_BASE }}
+  IMAGE_ID_BASE: ${{ steps.load.outputs.IMAGE_ID_BASE }}
