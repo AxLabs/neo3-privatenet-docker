@@ -63,7 +63,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           platforms: ${{ matrix.platform }}
-          tags: "${{ env.IMAGE_ID_BASE }}:${{ steps.loadenv.outputs.image-tag }}"
           context: ./neo-node
           outputs: type=image,name=${{ env.IMAGE_ID_BASE }},push-by-digest=true,name-canonical=true,push=true
 
@@ -72,7 +71,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           platforms: ${{ matrix.platform }}
-          tags: "${{ env.IMAGE_ID_PLUGINS }}:${{ steps.loadenv.outputs.image-tag }}"
           file: ./docker/Dockerfile
           target: NeoCliFinal
           build-args: IMAGE_TAG=${{ steps.loadenv.outputs.image-tag }}
