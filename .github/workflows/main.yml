@@ -16,6 +16,11 @@ on:
         required: true
         default: 'false'
 
+env:
+  IMAGE_ID_BASE: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli
+  IMAGE_ID_PLUGINS: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins
+  VERSION_LATEST: latest
+
 jobs:
   ghcr_push:
     runs-on: ubuntu-latest
@@ -41,68 +46,52 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set variables
-        env:
-          IMAGE_ID_BASE: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli
-          IMAGE_ID_PLUGINS: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins
-          VERSION_LATEST: latest
-        run: |
-          set -o allexport; source .env; set +o allexport
-          echo "IMAGE_ID_BASE=${IMAGE_ID_BASE}" >> $GITHUB_ENV
-          echo "IMAGE_ID_PLUGINS=${IMAGE_ID_PLUGINS}" >> $GITHUB_ENV
-          echo "VERSION_LATEST=${VERSION_LATEST}" >> $GITHUB_ENV
-          echo "VERSION_SPECIFIC=${IMAGE_TAG}" >> $GITHUB_ENV
+      - name: Load .env
+        id: loadenv
+        uses: ./.github/actions/load-env
 
       - name: Build and push base image (neo-node) ('latest' tag)
         if: github.event.inputs.latest-version == 'true'
-        run: |
-          echo IMAGE_ID_BASE=$IMAGE_ID_BASE
-          echo VERSION_LATEST=$VERSION_LATEST
-          docker buildx build \
-            --no-cache \
-            --push \
-            --tag $IMAGE_ID_BASE:$VERSION_LATEST \
-            --platform linux/amd64,linux/arm64 \
-            ./neo-node
+        uses: docker/build-push-action@v5
+        with:
+          no-cache: true
+          push: true
+          tags: "${{ env.IMAGE_ID_BASE }}:${{ env.VERSION_LATEST }}"
+          platforms: linux/amd64,linux/arm64
+          context: ./neo-node
 
       - name: Build and push base image (neo-node) (specific version tag)
         if: github.event.inputs.specific-version == 'true'
-        run: |
-          echo IMAGE_ID_BASE=$IMAGE_ID_BASE
-          echo VERSION_SPECIFIC=$VERSION_SPECIFIC
-          docker buildx build \
-            --no-cache \
-            --push \
-            --tag $IMAGE_ID_BASE:$VERSION_SPECIFIC \
-            --platform linux/amd64,linux/arm64 \
-            ./neo-node
+        uses: docker/build-push-action@v5
+        with:
+          no-cache: true
+          push: true
+          tags: "${{ env.IMAGE_ID_BASE }}:${{ steps.loadenv.outputs.IMAGE_TAG }}"
+          platforms: linux/amd64,linux/arm64
+          context: ./neo-node
 
       - name: Build and push neo-cli-with-plugins ('latest' tag)
         if: github.event.inputs.latest-version == 'true'
-        run: |
-          echo IMAGE_ID_PLUGINS=$IMAGE_ID_PLUGINS
-          echo VERSION_LATEST=$VERSION_LATEST
-          docker buildx build \
-            --no-cache \
-            --push \
-            --tag $IMAGE_ID_PLUGINS:$VERSION_LATEST \
-            --platform linux/amd64,linux/arm64 \
-            -f ./docker/Dockerfile \
-            --target NeoCliFinal \
-            --build-arg IMAGE_TAG=$VERSION_LATEST \
-            ./neo-modules
+        uses: docker/build-push-action@v5
+        with:
+          no-cache: true
+          push: true
+          tags: "${{ env.IMAGE_ID_PLUGINS }}:${{ env.VERSION_LATEST }}"
+          platforms: linux/amd64,linux/arm64
+          file: ./docker/Dockerfile
+          target: NeoCliFinal
+          build-args: IMAGE_TAG=${{ env.VERSION_LATEST }}
+          context: ./neo-modules
 
       - name: Build and push neo-cli-with-plugins (specific version tag)
         if: github.event.inputs.specific-version == 'true'
-        run: |
-          echo IMAGE_ID_PLUGINS=$IMAGE_ID_PLUGINS
-          echo VERSION_SPECIFIC=$VERSION_SPECIFIC
-          docker buildx build \
-            --no-cache \
-            --push \
-            --tag $IMAGE_ID_PLUGINS:$VERSION_SPECIFIC \
-            --platform linux/amd64,linux/arm64 \
-            -f ./docker/Dockerfile \
-            --target NeoCliFinal \
-            --build-arg IMAGE_TAG=$VERSION_SPECIFIC \
-            ./neo-modules   
+        uses: docker/build-push-action@v5
+        with:
+          no-cache: true
+          push: true
+          tags: "${{ env.IMAGE_ID_PLUGINS }}:${{ steps.loadenv.outputs.IMAGE_TAG }}"
+          platforms: linux/amd64,linux/arm64
+          file: ./docker/Dockerfile
+          target: NeoCliFinal
+          build-args: IMAGE_TAG=${{ steps.loadenv.outputs.IMAGE_TAG }}
+          context: ./neo-modules
