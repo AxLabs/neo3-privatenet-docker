@@ -61,6 +61,7 @@ jobs:
         with:
           platforms: ${{ matrix.platform }}
           context: ./neo-node
+          build-args: BUILDPLATFORM=${{ matrix.platform }}
           outputs: type=image,name=${{ env.IMAGE_ID_BASE }},push-by-digest=true,name-canonical=true,push=true
 
       - name: Export digest - base image
@@ -119,7 +120,7 @@ jobs:
           platforms: ${{ matrix.platform }}
           file: ./docker/Dockerfile
           target: NeoCliFinal
-          build-args: IMAGE_TAG=${{ steps.loadenv.outputs.image-tag }}
+          build-args: IMAGE_TAG=${{ steps.loadenv.outputs.image-tag }},BUILDPLATFORM=${{ matrix.platform }}
           context: ./neo-modules
           outputs: type=image,name=${{ env.IMAGE_ID_PLUGINS }},push-by-digest=true,name-canonical=true,push=true
 
@@ -156,13 +157,6 @@ jobs:
           pattern: digests-base-image-*
           merge-multiple: true
 
-      - name: Download digests - neo-cli-with-plugins
-        uses: actions/download-artifact@v4
-        with:
-          path: /tmp/digests-plugins-image
-          pattern: digests-plugins-image-*
-          merge-multiple: true
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -178,20 +172,10 @@ jobs:
         run: |
           docker buildx imagetools create -t ${{ env.IMAGE_ID_BASE }}:${{ steps.loadenv.outputs.image-tag }} \
             $(printf '${{ env.IMAGE_ID_BASE }}@sha256:%s ' *)
-
-      - name: Create manifest list and push - neo-cli-with-plugins
-        working-directory: /tmp/digests-plugins-image
-        run: |
-          docker buildx imagetools create -t ${{ env.IMAGE_ID_PLUGINS }}:${{ steps.loadenv.outputs.image-tag }} \
-            $(printf '${{ env.IMAGE_ID_PLUGINS }}@sha256:%s ' *)
             
       - name: Inspect image - base image
         run: |
           docker buildx imagetools inspect ${{ env.IMAGE_ID_BASE }}:${{ steps.loadenv.outputs.image-tag }}
-
-      - name: Inspect image - neo-cli-with-plugins
-        run: |
-          docker buildx imagetools inspect ${{ env.IMAGE_ID_PLUGINS }}:${{ steps.loadenv.outputs.image-tag }}
 
   merge-neo-cli-with-plugins:
     runs-on: ubuntu-latest
