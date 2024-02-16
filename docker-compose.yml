@@ -5,12 +5,13 @@ services:
   build-neo-cli:
     build:
       context: ./neo-node
+      dockerfile: ../docker/Dockerfile.neo-node
     image: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli:${IMAGE_TAG}
 
   build-neo-cli-with-plugins:
     build:
       context: ./neo-modules
-      dockerfile: ../docker/Dockerfile
+      dockerfile: ../docker/Dockerfile.neo-node-with-plugins
       target: NeoCliFinal
       args:
         IMAGE_TAG: ${IMAGE_TAG}
