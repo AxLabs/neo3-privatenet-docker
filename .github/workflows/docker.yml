@@ -63,7 +63,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           platforms: ${{ matrix.platform }}
-          file: ./docker/Dockerfile.neo-cli-with-plugins
+          file: ./docker/Dockerfile.neo-node-with-plugins
           target: NeoCliFinal
           build-args: IMAGE_TAG=${{ steps.loadenv.outputs.image-tag }},BUILDPLATFORM=${{ matrix.platform }}
           context: ./
