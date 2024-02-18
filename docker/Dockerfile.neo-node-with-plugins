@@ -1,8 +1,7 @@
-ARG IMAGE_TAG=master
-
+# Build the plugins
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS PluginBuild
 
-COPY ./ /neo-modules
+COPY ./neo-modules /neo-modules
 WORKDIR /neo-modules
 
 # If any plugin should be excluded from the build, just set 
@@ -33,13 +32,28 @@ RUN mkdir -p /plugins && \
 	| sed 's/ //g' \
 	| xargs -I {} sh -c 'echo {} && dotnet publish ./src/{} -c Release /p:ErrorOnDuplicatePublishOutputFiles=false -o /plugins && mkdir -p /plugins/{} && cp /plugins/{}.* /plugins/{}/ && if [ -e ./src/{}/config.json ]; then cp ./src/{}/config.json /plugins/{}/config.json; fi'
 
-FROM --platform=$BUILDPLATFORM ghcr.io/axlabs/neo3-privatenet-docker/neo-cli:${IMAGE_TAG} AS NeoCliFinal
+# Build the neo-cli
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS NeoCliBuild
+
+COPY ./neo-node/neo-cli /neo-cli
+COPY ./neo-node/Neo.ConsoleService /Neo.ConsoleService
+COPY ./neo-node/NuGet.Config /neo-cli
+
+WORKDIR /neo-cli
+RUN dotnet restore && dotnet publish -c Release -o /app
+
+# Final image: neo-node-with-plugins :-)
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:7.0 AS NeoCliFinal
 
 LABEL org.opencontainers.image.source https://github.com/axlabs/neo3-privatenet-docker
 
-# Install some utils and clean things up
 RUN apt-get -y update && \
-	apt-get -y install jq nano procps && \
+	apt-get -y install jq nano procps screen libleveldb-dev sqlite3 && \
 	rm -rf /var/lib/apt/lists/*
 
+WORKDIR /neo-cli
+
+COPY --from=NeoCliBuild /app .
 COPY --from=PluginBuild /plugins ./Plugins
+
+ENTRYPOINT ["screen","-DmS","node","dotnet","neo-cli.dll","-r"]

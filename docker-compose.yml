@@ -2,29 +2,16 @@ version: '3.7'
 
 services:
 
-  build-neo-cli:
+  neo-consensus:
     build:
-      context: ./neo-node
-      dockerfile: ../docker/Dockerfile.neo-node
-    image: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli:${IMAGE_TAG}
-
-  build-neo-cli-with-plugins:
-    build:
-      context: ./neo-modules
-      dockerfile: ../docker/Dockerfile.neo-node-with-plugins
+      context: ./
+      dockerfile: ./docker/Dockerfile.neo-node-with-plugins
       target: NeoCliFinal
       args:
         IMAGE_TAG: ${IMAGE_TAG}
     image: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:${IMAGE_TAG}
-    depends_on:
-      - build-neo-cli
-
-  neo-consensus:
-    image: ghcr.io/axlabs/neo3-privatenet-docker/neo-cli-with-plugins:${IMAGE_TAG}
     hostname: neo-consensus
     container_name: neo-consensus
-    depends_on:
-      - build-neo-cli-with-plugins
     volumes:
       - ./config/config-consensus.privatenet3.json:/neo-cli/config.json:ro
       - ./config/wallet-consensus.privatenet3.json:/neo-cli/wallet.json:rw
@@ -43,7 +30,6 @@ services:
     hostname: neo-client1
     container_name: neo-client1
     depends_on:
-      - build-neo-cli-with-plugins
       - neo-consensus
     volumes:
       - ./config/config-client1.privatenet3.json:/neo-cli/config.json:ro
@@ -62,7 +48,6 @@ services:
     hostname: neo-client2
     container_name: neo-client2
     depends_on:
-      - build-neo-cli-with-plugins
       - neo-consensus
     volumes:
       - ./config/config-client2.privatenet3.json:/neo-cli/config.json:ro
