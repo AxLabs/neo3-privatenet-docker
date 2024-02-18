@@ -61,6 +61,8 @@ jobs:
       - name: Build and push neo-cli-with-plugins
         id: build-plugins-image
         uses: docker/build-push-action@v5
+        env:
+          BUILDPLATFORM: ${{ matrix.platform }}
         with:
           platforms: ${{ matrix.platform }}
           file: ./docker/Dockerfile.neo-node-with-plugins
