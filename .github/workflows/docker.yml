@@ -61,13 +61,11 @@ jobs:
       - name: Build and push neo-cli-with-plugins
         id: build-plugins-image
         uses: docker/build-push-action@v5
-        env:
-          BUILDPLATFORM: ${{ matrix.platform }}
         with:
           platforms: ${{ matrix.platform }}
           file: ./docker/Dockerfile.neo-node-with-plugins
           target: NeoCliFinal
-          build-args: IMAGE_TAG=${{ steps.loadenv.outputs.image-tag }},BUILDPLATFORM=${{ matrix.platform }}
+          build-args: IMAGE_TAG=${{ steps.loadenv.outputs.image-tag }}
           context: ./
           outputs: type=image,name=${{ env.IMAGE_ID }},push-by-digest=true,name-canonical=true,push=true
 
