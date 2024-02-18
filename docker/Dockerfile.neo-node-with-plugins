@@ -1,5 +1,5 @@
 # Build the plugins
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS PluginBuild
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS PluginBuild
 
 COPY ./neo-modules /neo-modules
 WORKDIR /neo-modules
@@ -33,7 +33,7 @@ RUN mkdir -p /plugins && \
 	| xargs -I {} sh -c 'echo {} && dotnet publish ./src/{} -c Release /p:ErrorOnDuplicatePublishOutputFiles=false -o /plugins && mkdir -p /plugins/{} && cp /plugins/{}.* /plugins/{}/ && if [ -e ./src/{}/config.json ]; then cp ./src/{}/config.json /plugins/{}/config.json; fi'
 
 # Build the neo-cli
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS NeoCliBuild
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS NeoCliBuild
 
 COPY ./neo-node/neo-cli /neo-cli
 COPY ./neo-node/Neo.ConsoleService /Neo.ConsoleService
@@ -43,7 +43,7 @@ WORKDIR /neo-cli
 RUN dotnet restore && dotnet publish -c Release -o /app
 
 # Final image: neo-node-with-plugins :-)
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:7.0 AS NeoCliFinal
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS NeoCliFinal
 
 LABEL org.opencontainers.image.source https://github.com/axlabs/neo3-privatenet-docker
 
