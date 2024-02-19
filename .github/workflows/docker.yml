@@ -5,7 +5,7 @@ on:
     inputs:
       publish:
         description: 'Publish to ghcr?'
-        required: false
+        required: true
         default: 'false'
       set-latest-tag:
         description: 'Publish tag "latest"?'
@@ -37,9 +37,6 @@ jobs:
         with:
           submodules: recursive
 
-    #   - name: Set up QEMU
-    #     uses: docker/setup-qemu-action@v3
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
         with:
@@ -65,7 +62,7 @@ jobs:
           target: NeoCliFinal
           build-args: IMAGE_TAG=${{ steps.loadenv.outputs.image-tag }}
           context: ./
-          outputs: type=image,name=${{ env.IMAGE_ID }},push-by-digest=true,name-canonical=true,push=true
+          outputs: type=image,name=${{ env.IMAGE_ID }},push-by-digest=true,name-canonical=true,push=${{ github.event.inputs.publish }}
 
       - name: Export digest - neo-cli-with-plugins
         run: |
@@ -74,6 +71,7 @@ jobs:
           touch "/tmp/digests-plugins-image/${digest#sha256:}"
 
       - name: Upload digest - neo-cli-with-plugins
+        if: github.event.inputs.publish == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: digests-plugins-image-${{ env.PLATFORM_PAIR }}
@@ -83,6 +81,7 @@ jobs:
 
   merge-neo-cli-with-plugins:
     runs-on: ubuntu-latest
+    if: github.event.inputs.publish == 'true'
     needs:
       - build-neo-cli-with-plugins
     steps:
