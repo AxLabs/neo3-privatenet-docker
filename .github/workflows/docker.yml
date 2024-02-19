@@ -64,9 +64,13 @@ jobs:
           context: ./
           outputs: type=image,name=${{ env.IMAGE_ID }},push-by-digest=true,name-canonical=true,push=${{ github.event.inputs.publish }}
 
+      - name: Clean up digests dir - neo-cli-with-plugins
+        run: |
+          rm -rf /tmp/digests-plugins-image
+          mkdir -p /tmp/digests-plugins-image
+
       - name: Export digest - neo-cli-with-plugins
         run: |
-          mkdir -p /tmp/digests-plugins-image
           digest="${{ steps.build-plugins-image.outputs.digest }}"
           touch "/tmp/digests-plugins-image/${digest#sha256:}"
 
@@ -92,6 +96,11 @@ jobs:
         id: loadenv
         uses: ./.github/actions/load-env
 
+      - name: Clean up digests dir - neo-cli-with-plugins
+        run: |
+          rm -rf /tmp/digests-plugins-image
+          mkdir -p /tmp/digests-plugins-image
+    
       - name: Download digests - neo-cli-with-plugins
         uses: actions/download-artifact@v4
         with:
