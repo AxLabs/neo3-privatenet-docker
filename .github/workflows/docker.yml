@@ -7,11 +7,7 @@ on:
         description: 'Publish to ghcr?'
         required: false
         default: 'false'
-      specific-version:
-        description: 'Publish tag with specific version? (from .env)'
-        required: true
-        default: 'true'
-      latest-version:
+      set-latest-tag:
         description: 'Publish tag "latest"?'
         required: true
         default: 'false'
@@ -117,7 +113,11 @@ jobs:
       - name: Create manifest list and push - neo-cli-with-plugins
         working-directory: /tmp/digests-plugins-image
         run: |
-          docker buildx imagetools create -t ${{ env.IMAGE_ID }}:${{ steps.loadenv.outputs.image-tag }} \
+          LATEST_TAG=""
+          if [[ "${{ github.event.inputs.set-latest-tag }}" == "true" ]]; then
+            LATEST_TAG="-t ${{ env.IMAGE_ID }}:latest"
+          fi
+          docker buildx imagetools create -t ${{ env.IMAGE_ID }}:${{ steps.loadenv.outputs.image-tag }} $LATEST_TAG \
             $(printf '${{ env.IMAGE_ID }}@sha256:%s ' *)
 
       - name: Inspect image - neo-cli-with-plugins
