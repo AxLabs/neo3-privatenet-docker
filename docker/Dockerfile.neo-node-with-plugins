@@ -48,7 +48,7 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS NeoCliFinal
 LABEL org.opencontainers.image.source https://github.com/axlabs/neo3-privatenet-docker
 
 RUN apt-get -y update && \
-	apt-get -y install jq nano procps screen libleveldb-dev sqlite3 && \
+	apt-get -y install jq nano procps screen libleveldb-dev sqlite3 expect && \
 	rm -rf /var/lib/apt/lists/*
 
 WORKDIR /neo-cli
