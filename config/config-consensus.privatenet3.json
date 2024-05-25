@@ -11,7 +11,6 @@
     },
     "P2P": {
       "Port": 40333,
-      "WsPort": 40334,
       "MinDesiredConnections": 10,
       "MaxConnections": 40,
       "MaxConnectionsPerAddress": 3
@@ -21,7 +20,9 @@
       "Password": "neo",
       "IsActive": true
     },
-    "PluginURL": "https://github.com/neo-project/neo-modules/releases/download/v{1}/{0}.zip"
+    "Plugins": {
+      "DownloadUrl": "https://api.github.com/repos/neo-project/neo-modules/releases"
+    }
   },
   "ProtocolConfiguration": {
     "Network": 5195086,

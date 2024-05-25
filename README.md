@@ -59,7 +59,7 @@ docker-compose build --no-cache
 curl http://127.0.0.1:10332 -d '{"jsonrpc":"2.0","method":"getblockcount","params":[],"id":1}'
 ```
 
-* Open the wallet of the `neo-consesus` through JSON-RPC (**only for test purposes!**):
+* Open the wallet of the `neo-consensus` through JSON-RPC (**only for test purposes!**):
 
 ```
 curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"openwallet","params":["wallet.json","neo"],"id":1}'
@@ -71,16 +71,16 @@ curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"openwallet","params":
 curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"listaddress","params":[],"id":1}'
 ```
 
-* Get all NEP-17 balance of `neo-consensus`' address `NKvR5WeczCQMcVWQD9aaMqegfEoCBXGWpW`, specifically:
+* Get all NEP-17 balance of `neo-consensus`' address `NXXazKH39yNFWWZF5MJ8tEN98VYHwzn7g3`, specifically:
 
 ```
-curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"getnep17balances","params":["NKvR5WeczCQMcVWQD9aaMqegfEoCBXGWpW"],"id":1}'
+curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"getnep17balances","params":["NXXazKH39yNFWWZF5MJ8tEN98VYHwzn7g3"],"id":1}'
 ```
 
-* Send 100 NEO from `neo-consensus`' address `NKvR5WeczCQMcVWQD9aaMqegfEoCBXGWpW` to `neo-client1`'s address `NdihqSLYTf1B1WYuzhM52MNqvCNPJKLZaz`:
+* Send 100 NEO from `neo-consensus`' address `NXXazKH39yNFWWZF5MJ8tEN98VYHwzn7g3` to `neo-client1`'s address `NdihqSLYTf1B1WYuzhM52MNqvCNPJKLZaz`:
 
 ```
-curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"sendfrom","params":["0xef4073a0f2b305a38ec4050e4d3d28bc40ea63f5","NKvR5WeczCQMcVWQD9aaMqegfEoCBXGWpW", "NdihqSLYTf1B1WYuzhM52MNqvCNPJKLZaz",100],"id":1}'
+curl http://127.0.0.1:40332 -d '{"jsonrpc":"2.0","method":"sendfrom","params":["0xef4073a0f2b305a38ec4050e4d3d28bc40ea63f5","NXXazKH39yNFWWZF5MJ8tEN98VYHwzn7g3", "NdihqSLYTf1B1WYuzhM52MNqvCNPJKLZaz",100],"id":1}'
 ```
 
 * Open the wallet of the `neo-client1` through JSON-RPC (**only for test purposes!**):
