@@ -15,13 +15,13 @@ services:
     volumes:
       - ./config/config-consensus.privatenet3.json:/neo-cli/config.json:ro
       - ./config/wallet-consensus.privatenet3.json:/neo-cli/wallet.json:rw
-      - ./config/rpcserver.config-consensus.json:/neo-cli/Plugins/RpcServer/config.json:ro
-      - ./config/dbft.config-consensus.json:/neo-cli/Plugins/DBFTPlugin/config.json:ro
-      - ./config/applicationlogs.config-consensus.json:/neo-cli/Plugins/ApplicationLogs/config.json:ro
-      - ./config/oracle.config-consensus.json:/neo-cli/Plugins/OracleService/config.json:ro
-      - ./config/tokentracker.config-consensus.json:/neo-cli/Plugins/TokensTracker/config.json:ro
-      - ./config/stateservice.config-consensus.json:/neo-cli/Plugins/StateService/config.json:ro
-      - ./config/storagedumper.config-consensus.json:/neo-cli/Plugins/StorageDumper/config.json:ro
+      - ./config/rpcserver.config-consensus.json:/neo-cli/Plugins/RpcServer/RpcServer.json:ro
+      - ./config/dbft.config-consensus.json:/neo-cli/Plugins/DBFTPlugin/DBFTPlugin.json:ro
+      - ./config/applicationlogs.config-consensus.json:/neo-cli/Plugins/ApplicationLogs/ApplicationLogs.json:ro
+      - ./config/oracle.config-consensus.json:/neo-cli/Plugins/OracleService/OracleService.json:ro
+      - ./config/tokentracker.config-consensus.json:/neo-cli/Plugins/TokensTracker/TokensTracker.json:ro
+      - ./config/stateservice.config-consensus.json:/neo-cli/Plugins/StateService/StateService.json:ro
+      - ./config/storagedumper.config-consensus.json:/neo-cli/Plugins/StorageDumper/StorageDumper.json:ro
     ports:
       - "40332:40332"
 
@@ -34,12 +34,12 @@ services:
     volumes:
       - ./config/config-client1.privatenet3.json:/neo-cli/config.json:ro
       - ./config/wallet-client1.privatenet3.json:/neo-cli/wallet.json:rw
-      - ./config/rpcserver.config-client1.json:/neo-cli/Plugins/RpcServer/config.json:ro
-      - ./config/applicationlogs.config-client1.json:/neo-cli/Plugins/ApplicationLogs/config.json:ro
-      - ./config/oracle.config-client1.json:/neo-cli/Plugins/OracleService/config.json:ro
-      - ./config/tokentracker.config-client1.json:/neo-cli/Plugins/TokensTracker/config.json:ro
-      - ./config/stateservice.config-client1.json:/neo-cli/Plugins/StateService/config.json:ro
-      - ./config/storagedumper.config-client1.json:/neo-cli/Plugins/StorageDumper/config.json:ro
+      - ./config/rpcserver.config-client1.json:/neo-cli/Plugins/RpcServer/RpcServer.json:ro
+      - ./config/applicationlogs.config-client1.json:/neo-cli/Plugins/ApplicationLogs/ApplicationLogs.json:ro
+      - ./config/oracle.config-client1.json:/neo-cli/Plugins/OracleService/OracleService.json:ro
+      - ./config/tokentracker.config-client1.json:/neo-cli/Plugins/TokensTracker/TokensTracker.json:ro
+      - ./config/stateservice.config-client1.json:/neo-cli/Plugins/StateService/StateService.json:ro
+      - ./config/storagedumper.config-client1.json:/neo-cli/Plugins/StorageDumper/StorageDumper.json:ro
     ports:
       - "10332:10332"
 
@@ -52,11 +52,11 @@ services:
     volumes:
       - ./config/config-client2.privatenet3.json:/neo-cli/config.json:ro
       - ./config/wallet-client2.privatenet3.json:/neo-cli/wallet.json:rw
-      - ./config/rpcserver.config-client2.json:/neo-cli/Plugins/RpcServer/config.json:ro
-      - ./config/applicationlogs.config-client2.json:/neo-cli/Plugins/ApplicationLogs/config.json:ro
-      - ./config/oracle.config-client2.json:/neo-cli/Plugins/OracleService/config.json:ro
-      - ./config/tokentracker.config-client2.json:/neo-cli/Plugins/TokensTracker/config.json:ro
-      - ./config/stateservice.config-client2.json:/neo-cli/Plugins/StateService/config.json:ro
-      - ./config/storagedumper.config-client2.json:/neo-cli/Plugins/StorageDumper/config.json:ro
+      - ./config/rpcserver.config-client2.json:/neo-cli/Plugins/RpcServer/RpcServer.json:ro
+      - ./config/applicationlogs.config-client2.json:/neo-cli/Plugins/ApplicationLogs/ApplicationLogs.json:ro
+      - ./config/oracle.config-client2.json:/neo-cli/Plugins/OracleService/OracleService.json:ro
+      - ./config/tokentracker.config-client2.json:/neo-cli/Plugins/TokensTracker/TokensTracker.json:ro
+      - ./config/stateservice.config-client2.json:/neo-cli/Plugins/StateService/StateService.json:ro
+      - ./config/storagedumper.config-client2.json:/neo-cli/Plugins/StorageDumper/StorageDumper.json:ro
     ports:
       - "20332:20332"

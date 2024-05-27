@@ -1,14 +1,18 @@
 # Build the plugins
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS PluginBuild
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS PluginBuild
 
-COPY ./neo-modules /neo-modules
-WORKDIR /neo-modules
+COPY ./neo /neo
+WORKDIR /neo
 
 # If any plugin should be excluded from the build, just set 
 # to a regex including the names of dirs.
 # Example:
 #   REGEX_EXCLUDE_PLUGINS=".*(SystemLog|RpcNep5Tracker)"
 ARG REGEX_EXCLUDE_PLUGINS=".*(SystemLog|RpcNep5Tracker)"
+
+# Target framework for the plugins
+# ATTENTION: if dotnet version changes, this should be updated!
+ENV TARGET_FRAMEWORK="net8.0"
 
 #
 # Some magic here. Time for the kids to leave. Adults only.
@@ -21,7 +25,7 @@ ARG REGEX_EXCLUDE_PLUGINS=".*(SystemLog|RpcNep5Tracker)"
 # and other nasty problems. *smile*
 #
 RUN mkdir -p /plugins && \
-	find ./src/ \
+	find ./src/Plugins \
 		-regextype posix-extended \
 		-maxdepth 1 \
 		-mindepth 1 \
@@ -30,20 +34,18 @@ RUN mkdir -p /plugins && \
 		-and -not -regex "${REGEX_EXCLUDE_PLUGINS}" -print0 \
 	| xargs -0 -L1 sh -c 'basename $0' \
 	| sed 's/ //g' \
-	| xargs -I {} sh -c 'echo {} && dotnet publish ./src/{} -c Release /p:ErrorOnDuplicatePublishOutputFiles=false -o /plugins && mkdir -p /plugins/{} && cp /plugins/{}.* /plugins/{}/ && if [ -e ./src/{}/config.json ]; then cp ./src/{}/config.json /plugins/{}/config.json; fi'
+	| xargs -I {} sh -c 'echo Building {} && dotnet publish ./src/Plugins/{} -f $TARGET_FRAMEWORK -c Release /p:ErrorOnDuplicatePublishOutputFiles=false -o /plugins && mkdir -p /plugins/{} && mv /plugins/{}.* /plugins/{}/'
 
-# Build the neo-cli
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS NeoCliBuild
+# Build the Neo.CLI
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS NeoCliBuild
 
-COPY ./neo-node/neo-cli /neo-cli
-COPY ./neo-node/Neo.ConsoleService /Neo.ConsoleService
-COPY ./neo-node/NuGet.Config /neo-cli
+COPY ./neo /neo
 
-WORKDIR /neo-cli
-RUN dotnet restore && dotnet publish -c Release -o /app
+WORKDIR /neo
+RUN dotnet restore && dotnet publish ./src/Neo.CLI -c Release -o /cli
 
 # Final image: neo-node-with-plugins :-)
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS NeoCliFinal
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS NeoCliFinal
 
 LABEL org.opencontainers.image.source https://github.com/axlabs/neo3-privatenet-docker
 
@@ -53,7 +55,7 @@ RUN apt-get -y update && \
 
 WORKDIR /neo-cli
 
-COPY --from=NeoCliBuild /app .
+COPY --from=NeoCliBuild /cli .
 COPY --from=PluginBuild /plugins ./Plugins
 
-ENTRYPOINT ["screen","-DmS","node","dotnet","neo-cli.dll","-r"]
+ENTRYPOINT ["screen","-DmS","node","dotnet","neo-cli.dll"]
