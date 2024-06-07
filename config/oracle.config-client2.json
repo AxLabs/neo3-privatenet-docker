@@ -1,7 +1,9 @@
 {
   "PluginConfiguration": {
     "Network": 5195086,
-    "Nodes": [],
+    "Nodes": [
+      "http://neo-client1:10332"
+    ],
     "MaxTaskTimeout": 432000000,
     "MaxOracleTimeout": 10000,
     "AllowPrivateHost": false,
@@ -13,7 +15,7 @@
       "EndPoint": "http://127.0.0.1:8080",
       "Timeout": 15000
     },
-    "AutoStart": false
+    "AutoStart": true
   },
   "Dependency": [
     "RpcServer"

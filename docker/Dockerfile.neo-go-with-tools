@@ -1,0 +1,6 @@
+ARG NEO_GO_VERSION=latest
+
+FROM nspccdev/neo-go:${NEO_GO_VERSION}
+
+RUN apk update && apk add curl netcat-openbsd jq
+

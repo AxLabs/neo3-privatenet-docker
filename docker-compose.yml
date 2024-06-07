@@ -60,3 +60,18 @@ services:
       - ./config/storagedumper.config-client2.json:/neo-cli/Plugins/StorageDumper/StorageDumper.json:ro
     ports:
       - "20332:20332"
+
+  neo-go-cli:
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile.neo-go-with-tools
+      args:
+        NEO_GO_VERSION: ${NEO_GO_VERSION}
+    hostname: neo-go-cli
+    container_name: neo-go-cli
+    environment:
+      - WALLET_PASSWORD=neo
+    volumes:
+      - ./config/wallet-consensus.privatenet3.json:/wallet.json:ro
+      - ./scripts/wait_and_invoke.sh:/wait_and_invoke.sh:ro
+    entrypoint: ["sh", "/wait_and_invoke.sh"]

@@ -104,3 +104,32 @@ content-type: application/json
     "params":["NdihqSLYTf1B1WYuzhM52MNqvCNPJKLZaz"],
     "id":1
 }
+
+###
+# Gets all public keys that has role 'Oracle' from the Role Management contract
+###
+POST http://127.0.0.1:40332 HTTP/1.1
+content-type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "invokefunction",
+  "params": [
+    "0x49cf4e5378ffcd4dec034fd98a174c5491e395e2",
+    "getDesignatedByRole",
+    [
+        {
+            "type":"Integer",
+            "value":8
+        },
+        {
+            "type":"Integer",
+            "value":10
+        }
+    ],
+    [
+    ],
+    true
+  ]
+}
