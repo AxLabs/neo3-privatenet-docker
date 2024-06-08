@@ -14,9 +14,9 @@
 
 ## :tada: Highlights
 
-* :green_heart: This repository relies on [git sub-modules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) pointing to the official [neo-node](https://github.com/neo-project/neo-modules/) and [neo-modules](https://github.com/neo-project/neo-node/). Then, you can adjust the reference if you want to rely on the latest or an specific commit!
-* :rocket: The neo-cli image is built from the official `Dockerfile` from [neo-node](https://github.com/neo-project/neo-node/).
-* :100: Includes **all** available plugins from [neo-modules](https://github.com/neo-project/neo-modules/)
+* :green_heart: This repository relies on [git sub-modules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) pointing to the official [neo](https://github.com/neo-project/neo) repository. Then, you can adjust the reference if you want to rely on the latest or an specific commit!
+* :rocket: The neo-cli image is built from a lean [`Dockerfile`](./docker/Dockerfile.neo-node-with-plugins).
+* :100: Includes **all** available plugins from the [neo/src/Plugins](https://github.com/neo-project/neo/tree/master/src/Plugins)!
 * :boom: *It just fucking works.*
 
  :star: Ah, we love GitHub stars to keep our motivation up to the roof! :wink:
@@ -95,6 +95,32 @@ curl http://127.0.0.1:10332 -d '{"jsonrpc":"2.0","method":"openwallet","params":
 curl http://127.0.0.1:10332 -d '{"jsonrpc":"2.0","method":"getnep17balances","params":["NdihqSLYTf1B1WYuzhM52MNqvCNPJKLZaz"],"id":1}'
 ```
 
+## 🔨 Useful CLI commands
+
+This is just a collection of useful CLI commands in case you need them.
+
+* Designate the Oracle role in the Role Management native contract:
+
+First, connect to the `neo-consensus`:
+
+```
+docker exec -it neo-consensus screen -r
+```
+
+Then, in the CLI, enter the following:
+
+```
+invoke 0x49cf4e5378ffcd4dec034fd98a174c5491e395e2 designateAsRole [{"type":"Integer","value":8},{"type":"Array","value":[{"type":"PublicKey","value":"02607a38b8010a8f401c25dd01df1b74af1827dd16b821fc07451f2ef7f02da60f"},{"type":"PublicKey","value":"037279f3a507817251534181116cb38ef30468b25074827db34cbbc6adc8873932"}]}] NXXazKH39yNFWWZF5MJ8tEN98VYHwzn7g3
+```
+
+If you want to get the list of entries for a particular role:
+
+```
+invoke 0x49cf4e5378ffcd4dec034fd98a174c5491e395e2 getDesignatedByRole [{"type":"Integer","value":8},{"type":"Integer","value":10}] NXXazKH39yNFWWZF5MJ8tEN98VYHwzn7g3
+```
+
+👆The second parameter (integer) is the blockchain height.
+
 ## :bulb: Info
 
 The `docker-compose` file has 3 nodes, each with an account. The consensus node uses one public key for two accounts. One is a multisig account and the other a normal account. The multisig account is required as the validator account. Private keys are encrypted according to NEP-2.
@@ -148,7 +174,7 @@ The `docker-compose` file has 3 nodes, each with an account. The consensus node 
 
 ## :soon: Upcoming Features
 
-- [ ] Pre-fund wallets of `neo-client1` and `neo-client2` with plenty of NEO and GAS
+- [x] Pre-fund wallets of `neo-client1` and `neo-client2` with plenty of NEO and GAS
 - [ ] Automatically deploy smart contracts specified in a given local directory
 
 If you would like to see anything else, give us a shout and [open an issue](https://github.com/AxLabs/neo3-privatenet-docker/issues).
