@@ -14,9 +14,9 @@
 
 ## :tada: Highlights
 
-* :green_heart: This repository relies on [git sub-modules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) pointing to the official [neo-node](https://github.com/neo-project/neo-modules/) and [neo-modules](https://github.com/neo-project/neo-node/). Then, you can adjust the reference if you want to rely on the latest or an specific commit!
-* :rocket: The neo-cli image is built from the official `Dockerfile` from [neo-node](https://github.com/neo-project/neo-node/).
-* :100: Includes **all** available plugins from [neo-modules](https://github.com/neo-project/neo-modules/)
+* :green_heart: This repository relies on [git sub-modules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) pointing to the official [neo](https://github.com/neo-project/neo) repository. Then, you can adjust the reference if you want to rely on the latest or an specific commit!
+* :rocket: The neo-cli image is built from a lean [`Dockerfile`](./docker/Dockerfile.neo-node-with-plugins).
+* :100: Includes **all** available plugins from the [neo/src/Plugins](https://github.com/neo-project/neo/tree/master/src/Plugins)!
 * :boom: *It just fucking works.*
 
  :star: Ah, we love GitHub stars to keep our motivation up to the roof! :wink:
@@ -174,7 +174,7 @@ The `docker-compose` file has 3 nodes, each with an account. The consensus node 
 
 ## :soon: Upcoming Features
 
-- [ ] Pre-fund wallets of `neo-client1` and `neo-client2` with plenty of NEO and GAS
+- [x] Pre-fund wallets of `neo-client1` and `neo-client2` with plenty of NEO and GAS
 - [ ] Automatically deploy smart contracts specified in a given local directory
 
 If you would like to see anything else, give us a shout and [open an issue](https://github.com/AxLabs/neo3-privatenet-docker/issues).

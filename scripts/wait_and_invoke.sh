@@ -53,3 +53,19 @@ neo-go contract invokefunction --await --force -r http://neo-consensus:40332 \
   [ key:02607a38b8010a8f401c25dd01df1b74af1827dd16b821fc07451f2ef7f02da60f \
   key:037279f3a507817251534181116cb38ef30468b25074827db34cbbc6adc8873932 ] \
   -- NXXazKH39yNFWWZF5MJ8tEN98VYHwzn7g3:Global
+
+echo "Funding address NM7Aky765FG8NhhwtxjXRx7jEL1cnw7PBP (neo-consensus, normal wallet) with 10000000 GAS and 10000000 NEO..."
+echo "Funding address NV1Q1dTdvzPbThPbSFz7zudTmsmgnCwX6c (neo-client1) with 10000000 GAS and 10000000 NEO..."
+echo "Funding address NhJX9eCbkKtgDrh1S4xMTRaHUGbZ5Be7uU (neo-client2) with 10000000 GAS and 10000000 NEO..."
+
+neo-go wallet nep17 multitransfer --await --force -r http://neo-consensus:40332 \
+  --wallet-config /wallet.config \
+  --from NXXazKH39yNFWWZF5MJ8tEN98VYHwzn7g3 \
+  GAS:NM7Aky765FG8NhhwtxjXRx7jEL1cnw7PBP:10000000 \
+  NEO:NM7Aky765FG8NhhwtxjXRx7jEL1cnw7PBP:10000000 \
+  NEO:NXXazKH39yNFWWZF5MJ8tEN98VYHwzn7g3:0 \
+  GAS:NV1Q1dTdvzPbThPbSFz7zudTmsmgnCwX6c:10000000 \
+  NEO:NV1Q1dTdvzPbThPbSFz7zudTmsmgnCwX6c:10000000 \
+  GAS:NhJX9eCbkKtgDrh1S4xMTRaHUGbZ5Be7uU:10000000 \
+  NEO:NhJX9eCbkKtgDrh1S4xMTRaHUGbZ5Be7uU:10000000 \
+  -- NXXazKH39yNFWWZF5MJ8tEN98VYHwzn7g3:Global
