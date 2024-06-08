@@ -1,6 +1,7 @@
 {
 	"name": "neo3-privatenet-docker",
 	"image": "ghcr.io/axlabs/yaky-images/neo-neow3j",
+	"postCreateCommand": "echo 'Starting your neo3-privatenet-docker...' && docker-compose up",
 	"forwardPorts": [ 10332, 20332, 40332 ],
 	"portsAttributes": {
 		"40332": {
