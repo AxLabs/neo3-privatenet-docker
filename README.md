@@ -12,20 +12,20 @@
 <p>You're <b>3 commands away</b> to set up a Neo N3 blockchain private network.</p>
 </div>
 
-## :tada: Highlights
+## 🎉 Highlights
 
-* :green_heart: This repository relies on [git sub-modules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) pointing to the official [neo](https://github.com/neo-project/neo) repository. Then, you can adjust the reference if you want to rely on the latest or an specific commit!
-* :rocket: The neo-cli image is built from a lean [`Dockerfile`](./docker/Dockerfile.neo-node-with-plugins).
-* :100: Includes **all** available plugins from the [neo/src/Plugins](https://github.com/neo-project/neo/tree/master/src/Plugins)!
-* :boom: *It just fucking works.*
+* 💚 This repository relies on [git sub-modules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) pointing to the official [neo](https://github.com/neo-project/neo) repository. Then, you can adjust the reference if you want to rely on the latest or an specific commit!
+* 🚀 The neo-cli image is built from a lean [`Dockerfile`](./docker/Dockerfile.neo-node-with-plugins).
+* 💯 Includes **all** available plugins from the [neo/src/Plugins](https://github.com/neo-project/neo/tree/master/src/Plugins)!
+* 💥 *It just fucking works.*
 
- :star: Ah, we love GitHub stars to keep our motivation up to the roof! :wink:
+⭐️ Ah, we love GitHub stars to keep our motivation up to the roof! 😉
 
-## :rotating_light: Dependencies
+## 🚨 Dependencies
  - [docker](https://docs.docker.com/install/): [MacOS](https://docs.docker.com/docker-for-mac/install/) or [Windows](https://docs.docker.com/docker-for-windows/install/)
  - [docker-compose](https://docs.docker.com/compose/install/)
 
-## :running: How to Run
+## 🏃‍♂️ How to Run
 
 ```
 git clone --recurse-submodules https://github.com/AxLabs/neo3-privatenet-docker.git
@@ -51,7 +51,7 @@ After you change something in the config files and want to rebuild everything, w
 docker-compose build --no-cache
 ```
 
-## :zap: Test a bit through JSON-RPC
+## 🎯 Test a bit through JSON-RPC
 
 * Get the latest block index of `neo-client1`:
 
@@ -121,7 +121,7 @@ invoke 0x49cf4e5378ffcd4dec034fd98a174c5491e395e2 getDesignatedByRole [{"type":"
 
 👆The second parameter (integer) is the blockchain height.
 
-## :bulb: Info
+## 💡 Info
 
 The `docker-compose` file has 3 nodes, each with an account. The consensus node uses one public key for two accounts. One is a multisig account and the other a normal account. The multisig account is required as the validator account. Private keys are encrypted according to NEP-2.
 
@@ -172,14 +172,14 @@ The `docker-compose` file has 3 nodes, each with an account. The consensus node 
 * **Address Info**:
   * All the addresses have the `AddressVersion` set to `0x35` (which is the [default used in the neo-project](https://github.com/neo-project/neo/blob/402e9b19d80bb9093601f5ac57ff0cdc3c6cf6ab/src/neo/ProtocolSettings.cs#L50))
 
-## :soon: Upcoming Features
+## 🔜 Upcoming Features
 
 - [x] Pre-fund wallets of `neo-client1` and `neo-client2` with plenty of NEO and GAS
 - [ ] Automatically deploy smart contracts specified in a given local directory
 
 If you would like to see anything else, give us a shout and [open an issue](https://github.com/AxLabs/neo3-privatenet-docker/issues).
 
-## :pray: Thanks
+## 🙏 Thanks
 
-* We have to thank [hal0x2328](https://github.com/hal0x2328) for publishing [hal0x2328/neo3-privatenet-tutorial](https://github.com/hal0x2328/neo3-privatenet-tutorial) and inspire us to make things even simpler. :smiley: :wink:
+* We have to thank [hal0x2328](https://github.com/hal0x2328) for publishing [hal0x2328/neo3-privatenet-tutorial](https://github.com/hal0x2328/neo3-privatenet-tutorial) and inspire us to make things even simpler. 😊 😉
 * Thanks for [Tommo-L](https://github.com/Tommo-L) by providing the amazing [Tommo-L/NEO3-Development-Guide](https://github.com/Tommo-L/NEO3-Development-Guide) -- certainly, this development guide is complementary to the [AxLabs/neo3-privatenet-docker](https://github.com/AxLabs/neo3-privatenet-docker) repository.
