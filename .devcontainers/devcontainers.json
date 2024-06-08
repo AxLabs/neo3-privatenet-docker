@@ -1,0 +1,4 @@
+{
+	"name": "neo3-privatenet-docker",
+	"image": "ghcr.io/axlabs/yaky-images/neo-neow3j"
+}
