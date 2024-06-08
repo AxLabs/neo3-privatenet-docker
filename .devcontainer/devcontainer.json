@@ -1,4 +1,22 @@
 {
 	"name": "neo3-privatenet-docker",
-	"image": "ghcr.io/axlabs/yaky-images/neo-neow3j"
+	"image": "ghcr.io/axlabs/yaky-images/neo-neow3j",
+	"forwardPorts": [ 10332, 20332, 40332 ],
+	"portsAttributes": {
+		"40332": {
+			"label": "Application",
+			"onAutoForward": "notify",
+			"visibility": "public"
+		},
+		"10332": {
+			"label": "Application",
+			"onAutoForward": "notify",
+			"visibility": "public"
+		},
+		"20332": {
+			"label": "Application",
+			"onAutoForward": "notify",
+			"visibility": "public"
+		}
+	}
 }
