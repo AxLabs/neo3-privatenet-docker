@@ -5,19 +5,16 @@
 	"forwardPorts": [ 10332, 20332, 40332 ],
 	"portsAttributes": {
 		"40332": {
-			"label": "Application",
-			"onAutoForward": "notify",
-			"visibility": "public"
+			"label": "neo-consensus",
+			"onAutoForward": "silent"
 		},
 		"10332": {
-			"label": "Application",
-			"onAutoForward": "notify",
-			"visibility": "public"
+			"label": "neo-client1",
+			"onAutoForward": "silent"
 		},
 		"20332": {
-			"label": "Application",
-			"onAutoForward": "notify",
-			"visibility": "public"
+			"label": "neo-client2",
+			"onAutoForward": "silent"
 		}
 	}
 }
