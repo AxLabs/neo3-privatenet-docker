@@ -1,7 +1,7 @@
 #!/bin/sh
 
 set -e
-echo "Starting script..."
+echo "Starting script...!"
 
 echo "Checking if neo-node is up..."
 until nc -z neo-consensus 40332; do
