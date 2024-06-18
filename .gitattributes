@@ -1,2 +1,2 @@
-# Declare files that will always have CRLF line endings on checkout.
-wait_and_invoke.sh text eol=crlf
+# Declare files that will always have LF line endings on checkout.
+wait_and_invoke.sh text eol=lf
