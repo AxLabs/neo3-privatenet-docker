@@ -1,8 +1,5 @@
-#!/bin/sh
-
-
+#!/usr/bin/env sh
 set -e
-
 echo "Starting script..."
 
 echo "Checking if neo-node is up..."
