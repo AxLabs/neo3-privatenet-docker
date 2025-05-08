@@ -59,7 +59,7 @@ jobs:
         with:
           platforms: ${{ matrix.platform }}
           file: ./docker/Dockerfile.neo-node-with-plugins
-          target: NeoCliFinal
+          target: neo-cli-final
           build-args: IMAGE_TAG=${{ steps.loadenv.outputs.image-tag }}
           context: ./
           outputs: type=image,name=${{ env.IMAGE_ID }},push-by-digest=true,name-canonical=true,push=${{ github.event.inputs.publish }}
