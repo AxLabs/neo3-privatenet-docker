@@ -1,5 +1,5 @@
 # Build the plugins
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS PluginBuild
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS plugin-build
 
 COPY ./neo /neo
 WORKDIR /neo
@@ -12,7 +12,7 @@ ARG REGEX_EXCLUDE_PLUGINS=".*(SystemLog|RpcNep5Tracker)"
 
 # Target framework for the plugins
 # ATTENTION: if dotnet version changes, this should be updated!
-ENV TARGET_FRAMEWORK="net8.0"
+ENV TARGET_FRAMEWORK="net9.0"
 
 #
 # Some magic here. Time for the kids to leave. Adults only.
@@ -37,7 +37,7 @@ RUN mkdir -p /plugins && \
 	| xargs -I {} sh -c 'echo Building {} && dotnet publish ./src/Plugins/{} -f $TARGET_FRAMEWORK -c Release /p:ErrorOnDuplicatePublishOutputFiles=false -o /plugins && mkdir -p /plugins/{} && mv /plugins/{}.* /plugins/{}/'
 
 # Build the Neo.CLI
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS NeoCliBuild
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS neo-cli-build
 
 COPY ./neo /neo
 
@@ -45,7 +45,7 @@ WORKDIR /neo
 RUN dotnet restore && dotnet publish ./src/Neo.CLI -c Release -o /cli
 
 # Final image: neo-node-with-plugins :-)
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS NeoCliFinal
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS neo-cli-final
 
 LABEL org.opencontainers.image.source https://github.com/axlabs/neo3-privatenet-docker
 
@@ -55,7 +55,7 @@ RUN apt-get -y update && \
 
 WORKDIR /neo-cli
 
-COPY --from=NeoCliBuild /cli .
-COPY --from=PluginBuild /plugins ./Plugins
+COPY --from=neo-cli-build /cli .
+COPY --from=plugin-build /plugins ./Plugins
 
 ENTRYPOINT ["screen","-DmS","node","dotnet","neo-cli.dll"]
