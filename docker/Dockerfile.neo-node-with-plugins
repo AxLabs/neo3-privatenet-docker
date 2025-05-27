@@ -7,8 +7,8 @@ WORKDIR /neo
 # If any plugin should be excluded from the build, just set 
 # to a regex including the names of dirs.
 # Example:
-#   REGEX_EXCLUDE_PLUGINS=".*(SystemLog|RpcNep5Tracker)"
-ARG REGEX_EXCLUDE_PLUGINS=".*(SystemLog|RpcNep5Tracker)"
+#   REGEX_EXCLUDE_PLUGINS=".*(MPTTrie|RpcClient)"
+ARG REGEX_EXCLUDE_PLUGINS=".*(MPTTrie|RpcClient)"
 
 # Target framework for the plugins
 # ATTENTION: if dotnet version changes, this should be updated!
