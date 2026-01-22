@@ -1,18 +1,18 @@
 # Build the plugins
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS plugin-build
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS plugin-build
 
-COPY ./neo /neo
-WORKDIR /neo
+COPY ./neo-node /neo-node
+WORKDIR /neo-node
 
 # If any plugin should be excluded from the build, just set 
 # to a regex including the names of dirs.
 # Example:
 #   REGEX_EXCLUDE_PLUGINS=".*(MPTTrie|RpcClient)"
-ARG REGEX_EXCLUDE_PLUGINS=".*(MPTTrie|RpcClient)"
+ARG REGEX_EXCLUDE_PLUGINS=".*(MPTTrie|RpcClient|SignClient)"
 
 # Target framework for the plugins
 # ATTENTION: if dotnet version changes, this should be updated!
-ENV TARGET_FRAMEWORK="net9.0"
+ENV TARGET_FRAMEWORK="net10.0"
 
 #
 # Some magic here. Time for the kids to leave. Adults only.
@@ -25,7 +25,7 @@ ENV TARGET_FRAMEWORK="net9.0"
 # and other nasty problems. *smile*
 #
 RUN mkdir -p /plugins && \
-	find ./src/Plugins \
+	find ./plugins \
 		-regextype posix-extended \
 		-maxdepth 1 \
 		-mindepth 1 \
@@ -34,18 +34,18 @@ RUN mkdir -p /plugins && \
 		-and -not -regex "${REGEX_EXCLUDE_PLUGINS}" -print0 \
 	| xargs -0 -L1 sh -c 'basename $0' \
 	| sed 's/ //g' \
-	| xargs -I {} sh -c 'echo Building {} && dotnet publish ./src/Plugins/{} -f $TARGET_FRAMEWORK -c Release /p:ErrorOnDuplicatePublishOutputFiles=false -o /plugins && mkdir -p /plugins/{} && mv /plugins/{}.* /plugins/{}/'
+	| xargs -I {} sh -c 'echo Building {} && dotnet publish ./plugins/{} -f $TARGET_FRAMEWORK -c Release /p:ErrorOnDuplicatePublishOutputFiles=false -o /plugins && mkdir -p /plugins/{} && mv /plugins/{}.* /plugins/{}/'
 
 # Build the Neo.CLI
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS neo-cli-build
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS neo-cli-build
 
-COPY ./neo /neo
+COPY ./neo-node /neo-node
 
-WORKDIR /neo
+WORKDIR /neo-node
 RUN dotnet restore && dotnet publish ./src/Neo.CLI -c Release -o /cli
 
 # Final image: neo-node-with-plugins :-)
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS neo-cli-final
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS neo-cli-final
 
 LABEL org.opencontainers.image.source https://github.com/axlabs/neo3-privatenet-docker
 
