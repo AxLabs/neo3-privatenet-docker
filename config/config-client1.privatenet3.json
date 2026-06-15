@@ -26,7 +26,7 @@
   },
   "ProtocolConfiguration": {
     "Network": 5195086,
-    "MillisecondsPerBlock": 15000,
+    "MillisecondsPerBlock": 3000,
     "MaxTransactionsPerBlock": 200,
     "MemoryPoolMaxTransactions": 50000,
     "MaxTraceableBlocks": 2102400,
