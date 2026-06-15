@@ -1,6 +1,5 @@
 {
   "PluginConfiguration": {
-    "Network": 5195086,
     "Nodes": [
       "http://neo-client1:10332"
     ],

@@ -2,7 +2,6 @@
   "PluginConfiguration": {
     "Servers": [
       {
-        "Network": 5195086,
         "BindAddress": "0.0.0.0",
         "Port": 20332,
         "SslCert": "",
@@ -18,7 +17,7 @@
         "MaxFee": 0.1,
         "MaxConcurrentConnections": 40,
         "MaxIteratorResultItems": 100,
-        "MaxRequestBodySize": 5242880,
+        "MaxRequestBodySize": 1048576,
         "MaxStackSize": 65535,
         "DisabledMethods": [ ],
         "SessionEnabled": true,
