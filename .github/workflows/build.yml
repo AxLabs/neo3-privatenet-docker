@@ -37,10 +37,16 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Show Docker version
+        run: |
+          docker version
+          docker buildx version
+          docker info
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
         with:
-          config: buildkit-config.toml
+          buildkitd-config: buildkit-config.toml
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
@@ -91,6 +97,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Show Docker version
+        run: |
+          docker version
+          docker buildx version
+          docker info
 
       - name: Load .env
         id: loadenv
