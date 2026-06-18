@@ -8,7 +8,7 @@ WORKDIR /neo-node
 # to a regex including the names of dirs.
 # Example:
 #   REGEX_EXCLUDE_PLUGINS=".*(MPTTrie|RpcClient)"
-ARG REGEX_EXCLUDE_PLUGINS=".*(MPTTrie|RpcClient|SignClient|DeferredRelay)"
+ARG REGEX_EXCLUDE_PLUGINS=".*(MPTTrie|RpcClient|SignClient)"
 
 # Target framework for the plugins
 # ATTENTION: if dotnet version changes, this should be updated!

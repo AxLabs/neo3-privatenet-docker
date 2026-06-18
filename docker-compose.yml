@@ -20,6 +20,7 @@ services:
       - ./config/tokentracker.config-consensus.json:/neo-cli/Plugins/TokensTracker/TokensTracker.json:ro
       - ./config/stateservice.config-consensus.json:/neo-cli/Plugins/StateService/StateService.json:ro
       - ./config/storagedumper.config-consensus.json:/neo-cli/Plugins/StorageDumper/StorageDumper.json:ro
+      - ./config/deferredrelay.config-consensus.json:/neo-cli/Plugins/DeferredRelay/DeferredRelay.json:ro
     ports:
       - "40332:40332"
 
@@ -38,6 +39,7 @@ services:
       - ./config/tokentracker.config-client1.json:/neo-cli/Plugins/TokensTracker/TokensTracker.json:ro
       - ./config/stateservice.config-client1.json:/neo-cli/Plugins/StateService/StateService.json:ro
       - ./config/storagedumper.config-client1.json:/neo-cli/Plugins/StorageDumper/StorageDumper.json:ro
+      - ./config/deferredrelay.config-client1.json:/neo-cli/Plugins/DeferredRelay/DeferredRelay.json:ro
     ports:
       - "10332:10332"
 
@@ -56,6 +58,7 @@ services:
       - ./config/tokentracker.config-client2.json:/neo-cli/Plugins/TokensTracker/TokensTracker.json:ro
       - ./config/stateservice.config-client2.json:/neo-cli/Plugins/StateService/StateService.json:ro
       - ./config/storagedumper.config-client2.json:/neo-cli/Plugins/StorageDumper/StorageDumper.json:ro
+      - ./config/deferredrelay.config-client2.json:/neo-cli/Plugins/DeferredRelay/DeferredRelay.json:ro
     ports:
       - "20332:20332"
 
