@@ -1,59 +1,43 @@
-# Build the plugins
-FROM mcr.microsoft.com/dotnet/sdk:10.0 AS plugin-build
+# Download the Neo.CLI and plugins from the same upstream release tag.
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS neo-release
 
-COPY ./neo-node /neo-node
-WORKDIR /neo-node
-
-# If any plugin should be excluded from the build, just set 
-# to a regex including the names of dirs.
-# Example:
+# When changing the release tag, check the .NET SDK version and plugin archive names.
+ARG NEO_NODE_VERSION=v3.10.2
+ARG TARGETARCH
+# To exclude plugins from the image, set this build argument to a regex matching
+# the plugin names (the archive names without .zip). For example
 #   REGEX_EXCLUDE_PLUGINS=".*(MPTTrie|RpcClient)"
+# StateService.zip already bundles MPTTrie as a dependency.
 ARG REGEX_EXCLUDE_PLUGINS=".*(MPTTrie|RpcClient|SignClient)"
 
-# Target framework for the plugins
-# ATTENTION: if dotnet version changes, this should be updated!
-ENV TARGET_FRAMEWORK="net10.0"
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends ca-certificates curl unzip && \
+    rm -rf /var/lib/apt/lists/*
 
-# Build each plugin project found under ./plugins/<PluginName>.
-# This is resilient to helper/non-plugin folders (e.g., PluginHelper):
-# - It scans top-level plugin directories.
-# - It skips excluded names via REGEX_EXCLUDE_PLUGINS.
-# - It only builds directories that contain a .csproj file.
-# - It places final artifacts in /plugins/<PluginName>/.
+# The Linux release includes the CLI and the native LevelDB library for its CPU.
+# The CLI archive also bundles LevelDBStore. Remove that copy so the exclusion
+# regex applies to LevelDBStore just as it does to the other plugins.
+# Each plugin archive provides Plugins/<PluginName>/, which is installed at
+# /neo-cli/Plugins/<PluginName>/ for the Compose config mounts.
 RUN set -eu; \
-    mkdir -p /plugins; \
-    for dir in ./plugins/*; do \
-        [ -d "$dir" ] || continue; \
-        name="$(basename "$dir")"; \
-        case "$name" in \
-            .* ) continue ;; \
-        esac; \
-        if printf '%s\n' "$name" | grep -Eq "${REGEX_EXCLUDE_PLUGINS}"; then \
-            echo "Skipping $name (excluded by REGEX_EXCLUDE_PLUGINS)"; \
+    case "$TARGETARCH" in \
+        amd64) release_arch=x64 ;; \
+        arm64) release_arch=arm64 ;; \
+        *) echo "No Neo Node Linux release for architecture: $TARGETARCH" >&2; exit 1 ;; \
+    esac; \
+    release_url="https://github.com/neo-project/neo-node/releases/download/$NEO_NODE_VERSION"; \
+    curl -fsSL --retry 3 "$release_url/neo-cli.$NEO_NODE_VERSION-linux-$release_arch.tar.gz" -o /tmp/neo-cli.tar.gz; \
+    mkdir /release; \
+    tar -xzf /tmp/neo-cli.tar.gz -C /release --strip-components=1; \
+    rm -rf /release/Plugins/LevelDBStore; \
+    for plugin in ApplicationLogs DBFTPlugin DeferredRelay LevelDBStore OracleService RestServer \
+        RocksDBStore RpcClient RpcServer SignClient SQLiteWallet StateService StorageDumper TokensTracker; do \
+        if printf '%s\n' "$plugin" | grep -Eq "${REGEX_EXCLUDE_PLUGINS}"; then \
             continue; \
         fi; \
-        csproj="$(find "$dir" -maxdepth 1 -type f -name '*.csproj' -print -quit)"; \
-        if [ -z "$csproj" ]; then \
-            echo "Skipping $name (no .csproj)"; \
-            continue; \
-        fi; \
-        echo "Building $name from $csproj"; \
-        dotnet publish "$csproj" \
-            -f "$TARGET_FRAMEWORK" \
-            -c Release \
-            /p:ErrorOnDuplicatePublishOutputFiles=false \
-            -o /plugins; \
-        mkdir -p "/plugins/$name"; \
-        mv /plugins/"$name".* "/plugins/$name/"; \
+        curl -fsSL --retry 3 "$release_url/$plugin.zip" -o /tmp/plugin.zip; \
+        unzip -oq /tmp/plugin.zip -d /release; \
     done
-
-# Build the Neo.CLI
-FROM mcr.microsoft.com/dotnet/sdk:10.0 AS neo-cli-build
-
-COPY ./neo-node /neo-node
-
-WORKDIR /neo-node
-RUN dotnet restore && dotnet publish ./src/Neo.CLI -c Release -o /cli
 
 # Final image: neo-node-with-plugins :-)
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS neo-cli-final
@@ -61,12 +45,10 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS neo-cli-final
 LABEL org.opencontainers.image.source="https://github.com/axlabs/neo3-privatenet-docker"
 
 RUN apt-get -y update && \
-	apt-get -y install jq nano procps screen libleveldb-dev sqlite3 expect && \
-	rm -rf /var/lib/apt/lists/*
+    apt-get -y install jq nano procps screen libleveldb-dev sqlite3 expect && \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /neo-cli
+COPY --from=neo-release /release .
 
-COPY --from=neo-cli-build /cli .
-COPY --from=plugin-build /plugins ./Plugins
-
-ENTRYPOINT ["screen","-DmS","node","dotnet","neo-cli.dll"]
+ENTRYPOINT ["screen","-DmS","node","./neo-cli"]
