@@ -14,9 +14,9 @@
 
 ## 🎉 Highlights
 
-* 💚 This repository relies on [git sub-modules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) pointing to the official [neo](https://github.com/neo-project/neo) repository. Then, you can adjust the reference if you want to rely on the latest or an specific commit!
+* 💚 Use the official Neo Node release by default, or build from your own `neo` and `neo-node` submodule checkouts.
 * 🚀 The neo-cli image is built from a lean [`Dockerfile`](./docker/Dockerfile.neo-node-with-plugins).
-* 💯 Includes **all** available plugins from the [neo/src/Plugins](https://github.com/neo-project/neo/tree/master/src/Plugins)!
+* 💯 Includes the Neo Node plugins used by the private network. The [Dockerfile](./docker/Dockerfile.neo-node-with-plugins) documents how to exclude plugins.
 * 💥 *It just fucking works.*
 
 ⭐️ Ah, we love GitHub stars to keep our motivation up to the roof! 😉
@@ -50,6 +50,21 @@ After you change something in the config files and want to rebuild everything, w
 ```
 docker-compose build --no-cache
 ```
+
+### Build from the submodules
+
+Select compatible revisions in `neo` and `neo-node`, then build with `--build-arg NEO_NODE_BUILD=source`. The Docker build compiles the CLI and plugins against your checked-out Neo core.
+
+The exact `neo-node` tag `v3.10.2` expects a storage API that differs from the `neo` tag with the same name. To build that Neo Node tag from source, use this compatible Neo core commit, which includes the multisignature validation fix.
+
+```sh
+git submodule update --init --recursive
+git -C neo-node switch --detach refs/tags/v3.10.2
+git -C neo switch --detach 71e32e9e0ffe84193fd2f8aba665d63dab7d1c61
+docker compose build --build-arg NEO_NODE_BUILD=source neo-consensus
+```
+
+Run `docker compose build neo-consensus` to build the image from the official release again.
 
 ## 🎯 Test a bit through JSON-RPC
 

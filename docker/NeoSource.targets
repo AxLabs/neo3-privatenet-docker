@@ -1,0 +1,7 @@
+<Project>
+  <ItemGroup>
+    <ProjectReference Include="/neo/src/Neo/Neo.csproj"
+                      Condition="'@(PackageReference->WithMetadataValue('Identity', 'Neo'))' != ''" />
+    <PackageReference Remove="Neo" />
+  </ItemGroup>
+</Project>

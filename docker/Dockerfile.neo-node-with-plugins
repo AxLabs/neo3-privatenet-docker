@@ -1,14 +1,19 @@
+# Use "release" for upstream binaries or "source" for the local neo and neo-node submodules.
+# Select the source build with --build-arg NEO_NODE_BUILD=source.
+ARG NEO_NODE_BUILD=release
+
+# To exclude plugins from the image, set this build argument to a regex matching
+# the plugin names (source directories or archive names without .zip). For example
+#   REGEX_EXCLUDE_PLUGINS=".*(MPTTrie|RpcClient)"
+ARG REGEX_EXCLUDE_PLUGINS=".*(MPTTrie|RpcClient|SignClient)"
+
 # Download the Neo.CLI and plugins from the same upstream release tag.
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS neo-release
 
 # When changing the release tag, check the .NET SDK version and plugin archive names.
 ARG NEO_NODE_VERSION=v3.10.2
 ARG TARGETARCH
-# To exclude plugins from the image, set this build argument to a regex matching
-# the plugin names (the archive names without .zip). For example
-#   REGEX_EXCLUDE_PLUGINS=".*(MPTTrie|RpcClient)"
-# StateService.zip already bundles MPTTrie as a dependency.
-ARG REGEX_EXCLUDE_PLUGINS=".*(MPTTrie|RpcClient|SignClient)"
+ARG REGEX_EXCLUDE_PLUGINS
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends ca-certificates curl unzip && \
@@ -19,6 +24,7 @@ RUN apt-get update && \
 # regex applies to LevelDBStore just as it does to the other plugins.
 # Each plugin archive provides Plugins/<PluginName>/, which is installed at
 # /neo-cli/Plugins/<PluginName>/ for the Compose config mounts.
+# StateService.zip already bundles MPTTrie as a dependency.
 RUN set -eu; \
     case "$TARGETARCH" in \
         amd64) release_arch=x64 ;; \
@@ -39,6 +45,44 @@ RUN set -eu; \
         unzip -oq /tmp/plugin.zip -d /release; \
     done
 
+# Build the Neo.CLI and plugins from compatible neo and neo-node checkouts.
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS neo-source
+
+ARG REGEX_EXCLUDE_PLUGINS
+COPY ./neo /neo
+COPY ./neo-node /neo-node
+COPY ./docker/NeoSource.targets /build/NeoSource.targets
+WORKDIR /neo-node
+
+# Use the Neo project from the submodule when neo-node declares a Neo package dependency.
+ENV CustomAfterMicrosoftCommonTargets=/build/NeoSource.targets
+RUN dotnet publish ./src/Neo.CLI -c Release -o /release
+
+# Scan the top-level plugin directories and skip exclusions and helper folders
+# without a project file. Share the published dependencies in Plugins/ and
+# place each plugin's own files in Plugins/<PluginName>/.
+RUN set -eu; \
+    plugins_dir=/release/Plugins; \
+    mkdir -p "$plugins_dir"; \
+    for dir in ./plugins/*; do \
+        [ -d "$dir" ] || continue; \
+        plugin="$(basename "$dir")"; \
+        if printf '%s\n' "$plugin" | grep -Eq "${REGEX_EXCLUDE_PLUGINS}"; then \
+            echo "Skipping $plugin (excluded by REGEX_EXCLUDE_PLUGINS)"; \
+            continue; \
+        fi; \
+        csproj="$(find "$dir" -maxdepth 1 -type f -name '*.csproj' -print -quit)"; \
+        if [ -z "$csproj" ]; then \
+            echo "Skipping $plugin (no .csproj)"; \
+            continue; \
+        fi; \
+        dotnet publish "$csproj" -c Release -p:ErrorOnDuplicatePublishOutputFiles=false -o "$plugins_dir"; \
+        mkdir -p "$plugins_dir/$plugin"; \
+        mv "$plugins_dir/$plugin".* "$plugins_dir/$plugin/"; \
+    done
+
+FROM neo-${NEO_NODE_BUILD} AS neo-artifacts
+
 # Final image: neo-node-with-plugins :-)
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS neo-cli-final
 
@@ -49,6 +93,6 @@ RUN apt-get -y update && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /neo-cli
-COPY --from=neo-release /release .
+COPY --from=neo-artifacts /release .
 
 ENTRYPOINT ["screen","-DmS","node","./neo-cli"]
